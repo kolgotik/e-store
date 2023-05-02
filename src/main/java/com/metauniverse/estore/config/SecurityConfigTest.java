@@ -1,4 +1,4 @@
-/*package com.metauniverse.estore.config;
+package com.metauniverse.estore.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,4 +15,4 @@ public class SecurityConfigTest {
                 .password("password")
                 .roles("USER");
     }
-}*/
+}
