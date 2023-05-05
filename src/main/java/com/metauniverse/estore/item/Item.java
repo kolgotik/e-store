@@ -1,20 +1,20 @@
 
-package com.metauniverse.estore.products;
+package com.metauniverse.estore.item;
 
 import com.metauniverse.estore.user.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import java.math.BigDecimal;
+import java.util.Objects;
 
 
-@Setter
 @Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "items")
-@Component
 public class Item{
 
     @Id
@@ -32,5 +32,17 @@ public class Item{
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Item item = (Item) o;
+        return id != null && Objects.equals(id, item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
 
