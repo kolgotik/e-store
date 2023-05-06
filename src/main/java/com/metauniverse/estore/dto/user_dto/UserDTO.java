@@ -1,4 +1,4 @@
-package com.metauniverse.estore.DTO.userDTO;
+package com.metauniverse.estore.dto.user_dto;
 
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.user.Role;
