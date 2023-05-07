@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Coding by CodingLab | www.codinglabweb.com-->
-    <html lang="en">
+    <html lang="en"  xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,9 +19,9 @@
             <div class="form login">
                 <div class="form-content">
                     <header>Login</header>
-                    <form action="#">
+                    <form th:action="@{/process-login}" method="post">
                         <div class="field input-field">
-                            <input type="email" placeholder="Email" class="input">
+                            <input type="text" placeholder="Username" class="input">
                         </div>
 
                         <div class="field input-field">
