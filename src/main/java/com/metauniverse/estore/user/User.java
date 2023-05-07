@@ -38,6 +38,7 @@ public class User implements UserDetails {
     private String password;
     private String passwordConfirmation;
     @Column
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
     @Column
     private BigDecimal balance;

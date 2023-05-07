@@ -37,7 +37,7 @@ public class CreateUserTest {
         User user = new User();
         user.setFirstName("John");
         user.setLastName("Doe");
-        user.setUsername("johndoe1");
+        user.setUsername("johndoe12");
         user.setEmail("johndoe1@example.com");
         user.setPassword(bCryptPasswordEncoder.encode("password"));
         user.setRoles(Collections.singleton(Role.ROLE_USER));

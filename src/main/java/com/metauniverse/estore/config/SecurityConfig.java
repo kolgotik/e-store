@@ -1,11 +1,11 @@
 package com.metauniverse.estore.config;
 
 import com.metauniverse.estore.service.user_service.JpaUserDetailsService;
+import com.metauniverse.estore.service.user_service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,12 +19,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JpaUserDetailsService jpaUserDetailsService;
+    private final UserService userService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService) {
-        this.jpaUserDetailsService = jpaUserDetailsService;
+    public SecurityConfig(UserService userService) {
+        this.userService = userService;
     }
 
     @Bean
@@ -35,9 +35,10 @@ public class SecurityConfig {
                 .anyRequest()
                 .permitAll()
                 .and()
-                .userDetailsService(jpaUserDetailsService)
+                .userDetailsService(userService)
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/process-login")
                 .permitAll()
                 .and()
                 .build();
@@ -46,7 +47,7 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(jpaUserDetailsService);
+        provider.setUserDetailsService(userService);
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         return provider;
     }
