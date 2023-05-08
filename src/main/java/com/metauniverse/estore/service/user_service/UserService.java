@@ -16,9 +16,10 @@ public class UserService implements UserDetailsService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
-    public void createUser(User user){
+    public void createUser(User user) {
         userRepository.save(user);
     }
 
@@ -26,4 +27,5 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found " + username));
     }
+
 }

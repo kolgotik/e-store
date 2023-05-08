@@ -1,11 +1,10 @@
 package com.metauniverse.estore.config;
 
-import com.metauniverse.estore.service.user_service.JpaUserDetailsService;
 import com.metauniverse.estore.service.user_service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,34 +27,39 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationProvider provider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userService);
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
+        return daoAuthenticationProvider;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests()
-                .requestMatchers("/auth").hasAnyAuthority("ROLE_USER")
+                //.requestMatchers("/auth").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest()
                 .permitAll()
                 .and()
-                .userDetailsService(userService)
+                // .userDetailsService(userService)
                 .formLogin()
-                .loginPage("/login")
+                // .loginPage("/login")
                 .loginProcessingUrl("/process-login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?error")
                 .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .build();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userService);
-        provider.setPasswordEncoder(bCryptPasswordEncoder);
-        return provider;
-    }
-    protected void configure(AuthenticationManagerBuilder auth){
-        auth.authenticationProvider(authenticationProvider());
-    }
-    @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
