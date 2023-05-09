@@ -1,5 +1,6 @@
 package com.metauniverse.estore.config;
 
+import com.metauniverse.estore.service.user_service.CustomOAuth2UserService;
 import com.metauniverse.estore.service.user_service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final UserService userService;
-
+    private final CustomOAuth2UserService oAuth2UserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public SecurityConfig(UserService userService) {
+    public SecurityConfig(UserService userService, CustomOAuth2UserService oAuth2UserService) {
         this.userService = userService;
+        this.oAuth2UserService = oAuth2UserService;
     }
 
     @Bean
@@ -43,8 +45,13 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 // .userDetailsService(userService)
+                .oauth2Login()
+                .userInfoEndpoint().userService(oAuth2UserService)
+                .and()
+                .loginPage("/login")
+                .and()
                 .formLogin()
-                // .loginPage("/login")
+                .loginPage("/login")
                 .loginProcessingUrl("/process-login")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login?error")
