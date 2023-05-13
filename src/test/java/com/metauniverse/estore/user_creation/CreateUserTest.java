@@ -36,13 +36,13 @@ public class CreateUserTest {
     public void createUserTest() {
         User user = new User();
         user.setFirstName("John");
-        user.setLastName("Doe");
-        user.setUsername("r");
+        user.setLastName("Do23e");
+        user.setUsername("r2");
         user.setEmail("johndoe1@example.com");
-        user.setPassword(bCryptPasswordEncoder.encode("r"));
+        user.setPassword(bCryptPasswordEncoder.encode("r2"));
         user.setRoles(Collections.singleton(Role.ROLE_USER));
 
-        userService.createUser(user);
+        userRepository.save(user);
 
         Optional<User> userOptional = userRepository.findByUsername("johndoe");
         if (userOptional.isPresent()){
