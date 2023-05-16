@@ -1,6 +1,6 @@
 package com.metauniverse.estore.user_authentication;
 
-import com.metauniverse.estore.controller.login.LoginController;
+import com.metauniverse.estore.login.controller.LoginController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

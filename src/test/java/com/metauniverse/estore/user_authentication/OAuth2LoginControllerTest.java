@@ -1,6 +1,6 @@
 package com.metauniverse.estore.user_authentication;
 
-import com.metauniverse.estore.controller.login.OAuth2LoginController;
+import com.metauniverse.estore.login.controller.OAuth2LoginController;
 import com.metauniverse.estore.repository.user_repo.UserRepository;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;

@@ -1,4 +1,4 @@
-package com.metauniverse.estore.controller.login;
+package com.metauniverse.estore.login.controller;
 
 import com.metauniverse.estore.repository.user_repo.UserRepository;
 import com.metauniverse.estore.user.Role;

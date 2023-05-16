@@ -1,4 +1,4 @@
-package com.metauniverse.estore.service.user_service;
+package com.metauniverse.estore.user.user_service;
 
 import com.metauniverse.estore.repository.user_repo.UserRepository;
 import com.metauniverse.estore.user.Role;
