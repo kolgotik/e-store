@@ -5,7 +5,6 @@ import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -39,12 +38,14 @@ public class OAuth2LoginController {
                     return newUser;
                 });
 
-        log.info("Authorities of user from db: " + userFromDb.getAuthorities());
+        //LOGS BREAK TESTS
+
+        /*log.info("Authorities of user from db: " + userFromDb.getAuthorities());
         log.info("Attributes of oAuth user: " + oAuth2User.getAttributes());
         log.info("Authorities of oAuth user: " + oAuth2User.getAuthorities());
         log.info("oAuth user id: " + oAuth2User.getAttribute("sub"));
         log.info("oAuth user email: " + oAuth2User.getAttribute("email"));
-        log.info("Auth info: " + SecurityContextHolder.getContext().getAuthentication().getName());
+        log.info("Auth info: " + SecurityContextHolder.getContext().getAuthentication().getName());*/
 
         return "redirect:/";
     }
