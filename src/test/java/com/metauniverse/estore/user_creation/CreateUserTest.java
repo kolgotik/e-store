@@ -1,9 +1,8 @@
 package com.metauniverse.estore.user_creation;
 
 
-import com.metauniverse.estore.dto.user_dto.UserDTO;
 import com.metauniverse.estore.repository.user_repo.UserRepository;
-import com.metauniverse.estore.service.user_service.UserService;
+import com.metauniverse.estore.user.user_service.UserService;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import org.junit.jupiter.api.Test;

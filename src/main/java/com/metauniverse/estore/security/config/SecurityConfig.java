@@ -1,6 +1,6 @@
-package com.metauniverse.estore.config;
+package com.metauniverse.estore.security.config;
 
-import com.metauniverse.estore.service.user_service.UserService;
+import com.metauniverse.estore.user.user_service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -37,6 +37,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests()
+                .requestMatchers("/api/v*/registration/**").permitAll()
                 .anyRequest()
                 .permitAll()
                 .and()

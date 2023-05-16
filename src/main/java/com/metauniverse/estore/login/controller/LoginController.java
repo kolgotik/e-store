@@ -1,4 +1,4 @@
-package com.metauniverse.estore.controller.login;
+package com.metauniverse.estore.login.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

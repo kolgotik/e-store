@@ -1,4 +1,4 @@
-package com.metauniverse.estore.controller.test_auth;
+package com.metauniverse.estore.login.test_auth;
 
 import com.metauniverse.estore.user.User;
 import org.springframework.security.access.prepost.PreAuthorize;
