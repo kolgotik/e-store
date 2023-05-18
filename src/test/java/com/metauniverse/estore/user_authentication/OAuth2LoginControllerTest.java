@@ -41,12 +41,12 @@ class OAuth2LoginControllerTest {
         existingUser.setLastName(oauth2User.getAttribute("family_name"));
         existingUser.setEmail(oauth2User.getAttribute("email"));
 
-        when(userRepository.findByUsername(oauth2User.getAttribute("name")))
+        when(userRepository.findByEmail(oauth2User.getAttribute("email")))
                 .thenReturn(Optional.of(existingUser));
 
         String result = oauth2LoginController.saveOAuth2Principal(oauth2User);
 
-        verify(userRepository).findByUsername(oauth2User.getAttribute("name"));
+        verify(userRepository).findByEmail(oauth2User.getAttribute("email"));
         verify(userRepository, never()).save(any());
         assertEquals("redirect:/", result);
     }
@@ -60,13 +60,13 @@ class OAuth2LoginControllerTest {
         newUser.setLastName(oauth2User.getAttribute("family_name"));
         newUser.setEmail(oauth2User.getAttribute("email"));
 
-        when(userRepository.findByUsername(oauth2User.getAttribute("name")))
+        when(userRepository.findByEmail(oauth2User.getAttribute("email")))
                 .thenReturn(Optional.empty());
         when(userRepository.save(any())).thenReturn(newUser);
 
         String result = oauth2LoginController.saveOAuth2Principal(oauth2User);
 
-        verify(userRepository).findByUsername(oauth2User.getAttribute("name"));
+        verify(userRepository).findByEmail(oauth2User.getAttribute("email"));
         verify(userRepository).save(any());
         assertEquals("redirect:/", result);
     }

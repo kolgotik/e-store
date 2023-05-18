@@ -5,6 +5,7 @@ import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -26,11 +27,11 @@ public class OAuth2LoginController {
     @RequestMapping("/oauth2-success-login")
     public String saveOAuth2Principal(@AuthenticationPrincipal OAuth2User oAuth2User) {
 
-        User userFromDb = userRepository.findByUsername(oAuth2User.getAttribute("name"))
+        User userFromDb = userRepository.findByEmail(oAuth2User.getAttribute("email"))
                 .orElseGet(() -> {
                     User newUser = new User();
                     newUser.setRoles(Collections.singleton(Role.ROLE_USER));
-                    newUser.setUsername(oAuth2User.getAttribute("name"));
+//                    newUser.setUsername(oAuth2User.getAttribute("name"));
                     newUser.setFirstName(oAuth2User.getAttribute("given_name"));
                     newUser.setLastName(oAuth2User.getAttribute("family_name"));
                     newUser.setEmail(oAuth2User.getAttribute("email"));
@@ -40,7 +41,7 @@ public class OAuth2LoginController {
 
         //LOGS BREAK TESTS
 
-        /*log.info("Authorities of user from db: " + userFromDb.getAuthorities());
+        /*log.info("Authorities of user from db: " + userFromDb.getAuthorities() + " " + userFromDb.getEmail());
         log.info("Attributes of oAuth user: " + oAuth2User.getAttributes());
         log.info("Authorities of oAuth user: " + oAuth2User.getAuthorities());
         log.info("oAuth user id: " + oAuth2User.getAttribute("sub"));
