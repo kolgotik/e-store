@@ -47,6 +47,15 @@ public class User implements UserDetails {
     @ToString.Exclude
     private List<Item> items = new ArrayList<>();
 
+    public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
