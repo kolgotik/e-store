@@ -1,8 +1,12 @@
 package com.metauniverse.estore.user.user_service;
 
+import com.metauniverse.estore.registration.token.ConfirmationToken;
+import com.metauniverse.estore.registration.token.ConfirmationTokenService;
 import com.metauniverse.estore.repository.user_repo.UserRepository;
+import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,13 +15,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.UUID;
+
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class UserService implements UserDetailsService {
     private final static String EMAIL_NOT_FOUND_MSG = "User with email %s not found";
     private final static String EMAIL_ALREADY_TAKEN_MSG = "email already taken";
+
     private final UserRepository userRepository;
+
+    private final ConfirmationTokenService confirmationTokenService;
     private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
@@ -31,15 +43,29 @@ public class UserService implements UserDetailsService {
                 .findByEmail(user.getEmail())
                 .isPresent();
 
-        if (userExists) {
+        boolean isOAuthUser = user.getRoles().contains(Role.ROLE_OAUTH2USER);
+
+        if (userExists && !isOAuthUser) {
             throw new IllegalStateException(EMAIL_ALREADY_TAKEN_MSG);
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        user.setRoles(Collections.singleton(Role.ROLE_USER));
 
         userRepository.save(user);
 
-        return "works";
+        String token = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user);
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+        //TODO: send email
+
+        return token;
+    }
+
+    public void enableUser(String email) {
+        userRepository.enableUser(email);
     }
 }
