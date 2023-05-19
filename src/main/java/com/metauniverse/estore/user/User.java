@@ -40,6 +40,8 @@ public class User implements UserDetails {
     @Column
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+    private Boolean locked;
+    private Boolean enabled;
     @Column
     private BigDecimal balance;
 
@@ -54,6 +56,17 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles, Boolean locked, Boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.locked = locked;
+        this.enabled = enabled;
     }
 
     @Override

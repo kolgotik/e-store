@@ -15,22 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
-
-    private final static String USER_NOT_FOUND_MSG = "User with username %s not found";
     private final static String EMAIL_NOT_FOUND_MSG = "User with email %s not found";
     private final static String EMAIL_ALREADY_TAKEN_MSG = "email already taken";
     private final UserRepository userRepository;
     private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException(String.format(EMAIL_NOT_FOUND_MSG, email)));
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username)));
     }
 
     public String signUpUser(User user) {
