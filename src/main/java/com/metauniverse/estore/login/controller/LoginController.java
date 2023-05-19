@@ -25,9 +25,9 @@ public class LoginController {
     }
 
     @PostMapping("/process-login")
-    public String processLogin(@RequestParam String username, @RequestParam String password) {
+    public String processLogin(@RequestParam String email, @RequestParam String password) {
         try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
             Authentication authentication = authenticationProvider.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return "redirect:/";
