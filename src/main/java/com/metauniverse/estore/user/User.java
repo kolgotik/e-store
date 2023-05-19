@@ -26,23 +26,16 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
     private String firstName;
-    @Column
     private String lastName;
-    @Column
     private String username;
-    @Column
     private String email;
-    @Column
     private String password;
     private String passwordConfirmation;
-    @Column
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-    private Boolean locked;
-    private Boolean enabled;
-    @Column
+    private Boolean locked = false;
+    private Boolean enabled = false;
     private BigDecimal balance;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
@@ -96,7 +89,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -106,6 +99,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

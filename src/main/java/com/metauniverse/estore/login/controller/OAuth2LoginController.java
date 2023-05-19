@@ -5,20 +5,16 @@ import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Collections;
+import java.util.Set;
 
 @Controller
 @Slf4j
 public class OAuth2LoginController {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     public OAuth2LoginController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -29,23 +25,13 @@ public class OAuth2LoginController {
         User userFromDb = userRepository.findByEmail(oAuth2User.getAttribute("email"))
                 .orElseGet(() -> {
                     User newUser = new User();
-                    newUser.setRoles(Collections.singleton(Role.ROLE_USER));
-//                    newUser.setUsername(oAuth2User.getAttribute("name"));
+                    newUser.setRoles(Set.of(Role.ROLE_USER, Role.ROLE_OAUTH2USER));
                     newUser.setFirstName(oAuth2User.getAttribute("given_name"));
                     newUser.setLastName(oAuth2User.getAttribute("family_name"));
                     newUser.setEmail(oAuth2User.getAttribute("email"));
                     userRepository.save(newUser);
                     return newUser;
                 });
-
-        //LOGS BREAK TESTS
-
-        /*log.info("Authorities of user from db: " + userFromDb.getAuthorities() + " " + userFromDb.getEmail());
-        log.info("Attributes of oAuth user: " + oAuth2User.getAttributes());
-        log.info("Authorities of oAuth user: " + oAuth2User.getAuthorities());
-        log.info("oAuth user id: " + oAuth2User.getAttribute("sub"));
-        log.info("oAuth user email: " + oAuth2User.getAttribute("email"));
-        log.info("Auth info: " + SecurityContextHolder.getContext().getAuthentication().getName());*/
 
         return "redirect:/";
     }

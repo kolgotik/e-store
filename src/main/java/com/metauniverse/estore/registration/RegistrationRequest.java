@@ -20,5 +20,6 @@ public class RegistrationRequest {
     private final String email;
     private final String password;
     private final Set<Role> roles;
-
+    private final Boolean locked;
+    private final Boolean enabled;
 }
