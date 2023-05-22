@@ -1,5 +1,6 @@
 package com.metauniverse.estore.registration;
 
+import com.metauniverse.estore.exception.InvalidEmailException;
 import com.metauniverse.estore.registration.token.ConfirmationToken;
 import com.metauniverse.estore.registration.token.ConfirmationTokenService;
 import com.metauniverse.estore.repository.user_repo.UserRepository;
@@ -18,9 +19,8 @@ import java.util.Collections;
 @AllArgsConstructor
 @Slf4j
 public class RegistrationService {
-    private final UserRepository userRepository;
 
-    private static final String EMAIL_NOT_VALID_MSG = "Email: %s is not valid";
+    private final UserRepository userRepository;
 
     private final EmailValidator emailValidator;
 
@@ -33,7 +33,7 @@ public class RegistrationService {
         boolean isEmailValid = emailValidator.test(request.getEmail());
 
         if (!isEmailValid) {
-            throw new IllegalStateException(String.format(EMAIL_NOT_VALID_MSG, request.getEmail()));
+            throw new InvalidEmailException(request.getEmail());
         }
 
 
