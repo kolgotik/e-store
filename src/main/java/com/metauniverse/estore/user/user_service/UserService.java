@@ -1,5 +1,7 @@
 package com.metauniverse.estore.user.user_service;
 
+import com.metauniverse.estore.exception.EmailAlreadyTakenException;
+import com.metauniverse.estore.exception.UserWithEmailNotFoundException;
 import com.metauniverse.estore.registration.token.ConfirmationToken;
 import com.metauniverse.estore.registration.token.ConfirmationTokenService;
 import com.metauniverse.estore.repository.user_repo.UserRepository;
@@ -24,8 +26,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Slf4j
 public class UserService implements UserDetailsService {
-    private final static String EMAIL_NOT_FOUND_MSG = "User with email %s not found";
-    private final static String EMAIL_ALREADY_TAKEN_MSG = "email already taken";
 
     private final UserRepository userRepository;
 
@@ -34,8 +34,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email).orElseThrow(() ->
-                new UsernameNotFoundException(String.format(EMAIL_NOT_FOUND_MSG, email)));
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserWithEmailNotFoundException(email));
     }
 
     public String signUpUser(User user) {
@@ -46,7 +45,7 @@ public class UserService implements UserDetailsService {
         boolean isOAuthUser = user.getRoles().contains(Role.ROLE_OAUTH2USER);
 
         if (userExists && !isOAuthUser) {
-            throw new IllegalStateException(EMAIL_ALREADY_TAKEN_MSG);
+            throw new EmailAlreadyTakenException(user.getEmail());
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
