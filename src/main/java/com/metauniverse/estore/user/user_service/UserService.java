@@ -1,7 +1,7 @@
 package com.metauniverse.estore.user.user_service;
 
-import com.metauniverse.estore.exception.EmailAlreadyTakenException;
-import com.metauniverse.estore.exception.UserWithEmailNotFoundException;
+import com.metauniverse.estore.exception.email.EmailAlreadyTakenException;
+import com.metauniverse.estore.exception.email.UserNotFoundException;
 import com.metauniverse.estore.registration.token.ConfirmationToken;
 import com.metauniverse.estore.registration.token.ConfirmationTokenService;
 import com.metauniverse.estore.repository.user_repo.UserRepository;
@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UserWithEmailNotFoundException(email));
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
     public String signUpUser(User user) {
@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
         boolean isOAuthUser = user.getRoles().contains(Role.ROLE_OAUTH2USER);
 
         if (userExists && !isOAuthUser) {
-            throw new EmailAlreadyTakenException(user.getEmail());
+            throw new EmailAlreadyTakenException();
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());

@@ -1,7 +1,10 @@
 package com.metauniverse.estore.registration;
 
 import com.metauniverse.estore.email.EmailSender;
-import com.metauniverse.estore.exception.InvalidEmailException;
+import com.metauniverse.estore.exception.email.InvalidEmailException;
+import com.metauniverse.estore.exception.token.EmailAlreadyConfirmedException;
+import com.metauniverse.estore.exception.token.TokenExpiredException;
+import com.metauniverse.estore.exception.token.TokenNotFoundException;
 import com.metauniverse.estore.registration.token.ConfirmationToken;
 import com.metauniverse.estore.registration.token.ConfirmationTokenService;
 import com.metauniverse.estore.repository.user_repo.UserRepository;
@@ -36,7 +39,7 @@ public class RegistrationService {
         boolean isEmailValid = emailValidator.test(request.getEmail());
 
         if (!isEmailValid) {
-            throw new InvalidEmailException(request.getEmail());
+            throw new InvalidEmailException();
         }
 
         //TODO: THIS COULD BE THE ISSUE
@@ -75,15 +78,15 @@ public class RegistrationService {
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token)
-                .orElseThrow(() -> new IllegalStateException("token not found"));
-
+                .orElseThrow(TokenNotFoundException::new);
+        //TODO: Make exceptions
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
+            throw new EmailAlreadyConfirmedException();
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
+            throw new TokenExpiredException();
         }
 
         confirmationTokenService.setConfirmedAt(token);
