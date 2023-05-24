@@ -79,7 +79,7 @@ public class RegistrationService {
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token)
                 .orElseThrow(TokenNotFoundException::new);
-        //TODO: Make exceptions
+
         if (confirmationToken.getConfirmedAt() != null) {
             throw new EmailAlreadyConfirmedException();
         }

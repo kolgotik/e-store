@@ -20,7 +20,6 @@ class LoginControllerTest {
 
     @Mock
     private AuthenticationProvider authenticationProvider;
-
     @InjectMocks
     private LoginController loginController;
 
