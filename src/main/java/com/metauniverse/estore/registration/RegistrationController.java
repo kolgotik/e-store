@@ -10,8 +10,13 @@ public class RegistrationController {
 
     private final RegistrationService registrationService;
 
-    @PostMapping
-    public String register(@RequestBody RegistrationRequest request) {
+    @GetMapping("/register-form")
+    public String showForm() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute RegistrationRequest request) {
         return registrationService.registerUser(request);
     }
 
