@@ -67,30 +67,41 @@
 
     <!-- Signup Form -->
 
+
+
     <div class="form signup">
         <div class="form-content">
             <header>Signup</header>
-            <form method="post" th:action="@{/api/v1/registration/register}" th:object="${request}" onsubmit="return validatePasswords()">
+            <form method="post" th:action="@{/api/v1/registration/register}" th:object="${request}"
+                  onsubmit="return validatePasswords()">
                 <div class="field input-field">
-                    <input type="text" name="firstName" placeholder="First name" class="input" required>
+                    <input type="text" name="firstName" placeholder="First name" class="input" required minlength="2"
+                           maxlength="20">
                 </div>
 
                 <div class="field input-field">
-                    <input type="text" name="lastName" placeholder="Last name" class="input" required>
+                    <input type="text" name="lastName" placeholder="Last name" class="input" required minlength="2"
+                           maxlength="20">
                 </div>
 
                 <div class="field input-field">
-                    <input type="email" name="email" placeholder="Email" class="input" required>
+                    <input type="email" name="email" placeholder="Email" class="input" required minlength="2"
+                           maxlength="120">
+                </div>
+
+                <div class="field input-field" style="margin-bottom: 20px;">
+                    <input type="password" name="password" id="password" placeholder="Create password"
+                           class="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$"
+                           required minlength="6" maxlength="20" onkeyup="validatePasswords()">
+                    <div id="passwordError" class="error" ></div>
                 </div>
 
                 <div class="field input-field">
-                    <input type="password" name="password" id="password" placeholder="Create password" class="password" required>
-                </div>
-
-                <div class="field input-field">
-                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" class="password" required>
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password"
+                           class="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$"
+                           required minlength="6" maxlength="20" onkeyup="validatePasswords()">
                     <i class='bx bx-hide eye-icon'></i>
-                    <div id="passwordError" class="error"></div>
+                    <div class="error"></div>
                 </div>
 
                 <div class="field button-field">
@@ -106,19 +117,88 @@
 
     <script>
     function validatePasswords() {
-        var password = document.getElementById("password").value;
-        var confirmPassword = document.getElementById("confirmPassword").value;
-        var errorElement = document.getElementById("passwordError");
+        let passwordInput = document.getElementById("password");
+        let confirmPasswordInput = document.getElementById("confirmPassword");
+        let passwordError = document.getElementById("passwordError");
+        let password = passwordInput.value;
+        let confirmPassword = confirmPasswordInput.value;
 
-        if (password !== confirmPassword) {
-            errorElement.textContent = "Passwords do not match";
-            return false; // Prevent form submission
+        // Define regular expressions for each requirement
+        let uppercaseRegex = /^(?=.*[A-Z])/;
+        let lowercaseRegex = /^(?=.*[a-z])/;
+        let digitRegex = /^(?=.*[0-9])/;
+        let lengthRegex = /^.{6,}$/;
+
+        if (password.length !== 0) {
+            if (password === confirmPassword) {
+                // Check each requirement individually
+                if (!uppercaseRegex.test(password)) {
+                    passwordError.textContent = "Need at least one uppercase letter";
+                    passwordError.style.backgroundColor = "#ff4d4d";
+                    return false; // Prevent form submission
+                }
+                if (!lowercaseRegex.test(password)) {
+                    passwordError.textContent = "Need at least one lowercase letter";
+                    passwordError.style.backgroundColor = "#ff4d4d";
+                    return false; // Prevent form submission
+                }
+                if (!digitRegex.test(password)) {
+                    passwordError.textContent = "Need at least one digit";
+                    passwordError.style.backgroundColor = "#ff4d4d";
+                    return false; // Prevent form submission
+                }
+                if (!lengthRegex.test(password)) {
+                    passwordError.textContent = "Password should be at least 6 characters long";
+                    passwordError.style.backgroundColor = "#ff4d4d";
+                    return false; // Prevent form submission
+                }
+
+                // Password meets all requirements
+                passwordError.textContent = "Passwords match";
+                passwordError.style.backgroundColor = "#1dcd59";
+            } else {
+                passwordError.textContent = "Sorry, Passwords don't match";
+                passwordError.style.backgroundColor = "#ff4d4d";
+                return false; // Prevent form submission
+            }
         } else {
-            errorElement.textContent = "";
-            return true; // Allow form submission
+            passwordError.textContent = "Password can't be empty!";
+            passwordError.style.backgroundColor = "#ff4d4d";
+            return false;
         }
     }
 </script>
+    <!--<script>
+    function validatePasswords() {
+        let passwordInput = document.getElementById("password");
+        let confirmPasswordInput = document.getElementById("confirmPassword");
+        let passwordError = document.getElementById("passwordError");
+        let password = passwordInput.value;
+        let confirmPassword = confirmPasswordInput.value;
+
+        if (password.length !== 0) {
+            if (password === confirmPassword) {
+                passwordError.textContent = "Wow, Passwords match";
+                passwordError.style.backgroundColor = "#1dcd59";
+            } else {
+                passwordError.textContent = "Sorry, Passwords don't match";
+                passwordError.style.backgroundColor = "#ff4d4d";
+                return false;
+            }
+        } else {
+
+            passwordError.textContent = "Password can't be empty!";
+            passwordError.style.backgroundColor = "#ff4d4d";
+            return false;
+        }
+
+    }
+</script>-->
+
+
+
+
+
 </section>
 
 <!-- JavaScript -->
