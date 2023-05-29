@@ -1,13 +1,11 @@
 package com.metauniverse.estore.registration;
 
 import com.metauniverse.estore.user.Role;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
+@Setter
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode

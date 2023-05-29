@@ -60,7 +60,10 @@ public class RegistrationService {
             user.setPassword(request.getPassword());
             user.setRoles(Collections.singleton(Role.ROLE_OAUTH2USER));
 
-            return userService.signUpUser(user);
+            String token = userService.signUpUser(user);
+            String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+            emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+            return "Confirm you email.";
         }
         String token = userService.signUpUser(
                 new User(request.getFirstName(),
@@ -72,7 +75,7 @@ public class RegistrationService {
         );
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
-        return token;
+        return "Confirm you email.";
     }
 
     @Transactional

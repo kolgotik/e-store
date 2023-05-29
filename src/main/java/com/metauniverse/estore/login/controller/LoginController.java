@@ -1,5 +1,6 @@
 package com.metauniverse.estore.login.controller;
 
+import com.metauniverse.estore.registration.RegistrationRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -8,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +22,8 @@ public class LoginController {
     private AuthenticationProvider authenticationProvider;
 
     @GetMapping("/login")
-    public String showLoginPage() {
+    public String showLoginPage(RegistrationRequest request, Model model) {
+        model.addAttribute("request", request);
         return "login";
     }
 
