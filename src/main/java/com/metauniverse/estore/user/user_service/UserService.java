@@ -4,7 +4,7 @@ import com.metauniverse.estore.exception.email.EmailAlreadyTakenException;
 import com.metauniverse.estore.exception.email.UserNotFoundException;
 import com.metauniverse.estore.registration.token.ConfirmationToken;
 import com.metauniverse.estore.registration.token.ConfirmationTokenService;
-import com.metauniverse.estore.repository.user_repo.UserRepository;
+import com.metauniverse.estore.user.UserRepository;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import lombok.AllArgsConstructor;

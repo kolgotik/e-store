@@ -1,4 +1,4 @@
-package com.metauniverse.estore.repository.user_repo;
+package com.metauniverse.estore.user;
 
 import com.metauniverse.estore.user.User;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByUsername(String username);
     Optional<User> findByEmail(String email);
 
