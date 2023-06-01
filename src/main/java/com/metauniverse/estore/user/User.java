@@ -1,7 +1,9 @@
 package com.metauniverse.estore.user;
 
 
+import com.metauniverse.estore.cart.Cart;
 import com.metauniverse.estore.item.Item;
+import com.metauniverse.estore.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private Long id;
     private String firstName;
     private String lastName;
@@ -38,10 +41,11 @@ public class User implements UserDetails {
     private Boolean enabled = false;
     private BigDecimal balance;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
+    /*@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
     @ToString.Exclude
-    private List<Item> items = new ArrayList<>();
-
+    private List<Item> items = new ArrayList<>();*/
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
     public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;

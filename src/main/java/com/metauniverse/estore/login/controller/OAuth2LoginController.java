@@ -1,6 +1,6 @@
 package com.metauniverse.estore.login.controller;
 
-import com.metauniverse.estore.repository.user_repo.UserRepository;
+import com.metauniverse.estore.user.UserRepository;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import lombok.extern.slf4j.Slf4j;

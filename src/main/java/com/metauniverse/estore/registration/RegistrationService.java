@@ -7,7 +7,7 @@ import com.metauniverse.estore.exception.token.TokenExpiredException;
 import com.metauniverse.estore.exception.token.TokenNotFoundException;
 import com.metauniverse.estore.registration.token.ConfirmationToken;
 import com.metauniverse.estore.registration.token.ConfirmationTokenService;
-import com.metauniverse.estore.repository.user_repo.UserRepository;
+import com.metauniverse.estore.user.UserRepository;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
 import com.metauniverse.estore.user.user_service.UserService;
