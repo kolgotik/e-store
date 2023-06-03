@@ -25,6 +25,7 @@ public class Item {
     @Column(nullable = false, unique = true)
     private Long id;
     private String name;
+    private String brand;
     private BigDecimal price;
     private String itemType;
     private String category;
