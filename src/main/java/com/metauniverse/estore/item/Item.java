@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 
@@ -24,7 +25,7 @@ public class Item {
     @Column(nullable = false, unique = true)
     private Long id;
     private String name;
-    private Integer price;
+    private BigDecimal price;
     private String itemType;
     private String category;
     private Integer quantity;
