@@ -1,15 +1,18 @@
-package com.metauniverse.estore.item;
+package com.metauniverse.estore.item.controller;
 
+import com.metauniverse.estore.item.Item;
+import com.metauniverse.estore.item.ItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/item")
 @AllArgsConstructor
-public class GetItemControllerTEST {
+public class ItemControllerTEST {
 
     private final ItemRepository itemRepository;
 
@@ -31,6 +34,21 @@ public class GetItemControllerTEST {
         } else {
             return "no items found";
         }
+    }
+
+    @GetMapping("/create-item")
+    public String createItem() {
+
+        Item item = new Item();
+        item.setItemType("android smartphone");
+        item.setCategory("mid-range smartphone");
+        item.setBrand("OnePlus");
+        item.setName("OnePlus Nord CE 3 Lite 5G");
+        item.setPrice(BigDecimal.valueOf(300.81));
+
+        itemRepository.save(item);
+
+        return item.toString();
     }
 
 }
