@@ -2,8 +2,6 @@ package com.metauniverse.estore.user;
 
 
 import com.metauniverse.estore.cart.Cart;
-import com.metauniverse.estore.item.Item;
-import com.metauniverse.estore.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +13,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -41,11 +41,9 @@ public class User implements UserDetails {
     private Boolean enabled = false;
     private BigDecimal balance;
 
-    /*@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
-    @ToString.Exclude
-    private List<Item> items = new ArrayList<>();*/
     @OneToOne(mappedBy = "user")
     private Cart cart;
+
     public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
