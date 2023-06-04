@@ -2,14 +2,18 @@ package com.metauniverse.estore.item.controller;
 
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemRepository;
+import com.metauniverse.estore.item.ItemType;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/item")
 @AllArgsConstructor
 public class ItemControllerTEST {
@@ -28,8 +32,8 @@ public class ItemControllerTEST {
 
     @GetMapping("/get-by-type")
     public String getItemByType(@RequestParam("item-type") String type) {
-        Optional<List<Item>> items = itemRepository.getItemsByType(type);
-        if (items.isPresent()) {
+        Iterable<Item> items = itemRepository.getItemsByType(type);
+        if (items != null) {
             return items.toString();
         } else {
             return "no items found";
@@ -40,15 +44,15 @@ public class ItemControllerTEST {
     public String createItem() {
 
         Item item = new Item();
-        item.setItemType("android smartphone");
-        item.setCategory("mid-range smartphone");
-        item.setBrand("OnePlus");
-        item.setName("OnePlus Nord CE 3 Lite 5G");
-        item.setPrice(BigDecimal.valueOf(300.81));
+        item.setItemType(ItemType.CONSOLE.getValue());
+        item.setCategory("sony console");
+        item.setBrand("SONY");
+        item.setName("PS4 1TB");
+        item.setPrice(BigDecimal.valueOf(356.43));
 
         itemRepository.save(item);
 
-        return item.toString();
+        return "redirect:/";
     }
 
 }

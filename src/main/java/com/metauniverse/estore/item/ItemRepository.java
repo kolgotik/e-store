@@ -12,5 +12,5 @@ import java.util.Optional;
 @Transactional
 public interface ItemRepository extends CrudRepository<Item, Long> {
     @Query("SELECT i FROM Item i WHERE i.itemType = ?1")
-    Optional<List<Item>> getItemsByType(String itemType);
+    Iterable<Item> getItemsByType(String itemType);
 }
