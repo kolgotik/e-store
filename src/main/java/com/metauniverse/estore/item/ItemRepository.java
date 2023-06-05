@@ -13,4 +13,6 @@ import java.util.Optional;
 public interface ItemRepository extends CrudRepository<Item, Long> {
     @Query("SELECT i FROM Item i WHERE i.itemType = ?1")
     Iterable<Item> getItemsByType(String itemType);
+    @Query("SELECT i FROM Item i WHERE i.id = ?1")
+    Iterable<Item> getItemById(Long id);
 }

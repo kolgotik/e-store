@@ -5,6 +5,7 @@ import com.metauniverse.estore.item.ItemRepository;
 import com.metauniverse.estore.item.ItemType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +21,11 @@ public class ItemControllerTEST {
 
     private final ItemRepository itemRepository;
 
-    @GetMapping("/get/{id}")
-    public String getItemById(@PathVariable("id") long id) {
+    @GetMapping("/get-item")
+    public String getItemById(@RequestParam("itemId") long id, Model model) {
         Optional<Item> item = itemRepository.findById(id);
-        if (item.isPresent()) {
-            return item.toString();
-        } else {
-            return "item not found";
-        }
+        model.addAttribute("item", item);
+        return "product";
     }
 
     @GetMapping("/get-by-type")
@@ -54,5 +52,4 @@ public class ItemControllerTEST {
 
         return "redirect:/";
     }
-
 }
