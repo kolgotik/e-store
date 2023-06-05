@@ -30,7 +30,8 @@ public class Item {
     private String itemType;
     private String category;
     private Integer quantity;
-    private String description;
+    private String generalDescription;
+    private String detailedDescription;
     private String photo;
     private String video;
     @ManyToOne
