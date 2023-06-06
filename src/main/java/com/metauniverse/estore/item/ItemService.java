@@ -11,5 +11,11 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
+    public Iterable<Item> getItemsByType(String itemType) {
+        return itemRepository.getItemsByType(itemType);
+    }
 
+    public Iterable<Item> getEveryItem() {
+        return itemRepository.findAll();
+    }
 }
