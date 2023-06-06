@@ -3,6 +3,7 @@ package com.metauniverse.estore.login.controller;
 import com.metauniverse.estore.user.UserRepository;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -13,11 +14,10 @@ import java.util.Set;
 
 @Controller
 @Slf4j
+@AllArgsConstructor
 public class OAuth2LoginController {
+
     private final UserRepository userRepository;
-    public OAuth2LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @RequestMapping("/oauth2-success-login")
     public String saveOAuth2Principal(@AuthenticationPrincipal OAuth2User oAuth2User) {
