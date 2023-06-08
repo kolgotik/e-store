@@ -13,6 +13,8 @@
     <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="/styles/main_styles.css">
     <link rel="stylesheet" type="text/css" href="/styles/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/styles/categories.css">
+    <link rel="stylesheet" type="text/css" href="/styles/categories_responsive.css">
 </head>
 <body>
 
@@ -64,7 +66,7 @@
                             </nav>
                             <div class="header_extra ml-auto">
                                 <div class="shopping_cart">
-                                    <a href="cart.html">
+                                    <a href="/cart">
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                              viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;"
@@ -148,6 +150,34 @@
             <div class="row">
                 <div class="col">
 
+                    <!-- Product Sorting -->
+                    <div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
+                        <div class="results">Showing <span>12</span> results</div>
+                        <div class="sorting_container ml-md-auto">
+                            <div class="sorting">
+                                <ul class="item_sorting">
+                                    <li>
+                                        <span class="sorting_text">Sort by</span>
+                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                        <ul>
+                                            <li class="product_sorting_btn"
+                                                data-isotope-option='{ "sortBy": "original-order" }'>
+                                                <span>Default</span></li>
+                                            <li class="product_sorting_btn" data-isotope-option='{ "sortBy": "price" }'>
+                                                <span>Price</span></li>
+                                            <li class="product_sorting_btn" data-isotope-option='{ "sortBy": "stars" }'>
+                                                <span>Name</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
                     <div class="product_grid">
 
                         <!-- Product -->
@@ -155,86 +185,27 @@
                             <div class="product_image"><img src="/images/product_1.jpg" alt=""></div>
                             <!--<div class="product_extra product_new"><a href="categories.html">New</a></div>-->
                             <div class="product_content">
-                                <div class="product_title"><a th:text="${item.name}"
-                                                              th:href="@{/item/get-item(itemId=${item.id})}"></a></div>
+                                <div class="product_title">
+                                    <a th:text="${item.name}" th:href="@{/item/get-item(itemId=${item.id})}"></a>
+                                </div>
                                 <div th:text="${item.price} + ' $'" class="product_price"></div>
                             </div>
                         </div>
 
-                        <!--&lt;!&ndash; Product &ndash;&gt;
-                        <div class="product">
-                          <div class="product_image"><img src="/images/product_2.jpg" alt=""></div>
-                          &lt;!&ndash;<div class="product_extra product_sale"><a href="categories.html">Sale</a></div>&ndash;&gt;
-                          <div class="product_content">
-                            <div class="product_title"><a href="product.html">Smart Phone</a></div>
-                            <div class="product_price">$670</div>
-                          </div>
-                        </div>
-
-                        &lt;!&ndash; Product &ndash;&gt;
-                        <div class="product">
-                          <div class="product_image"><img src="/images/product_3.jpg" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_title"><a href="product.html">Smart Phone</a></div>
-                            <div class="product_price">$670</div>
-                          </div>
-                        </div>
-
-                        &lt;!&ndash; Product &ndash;&gt;
-                        <div class="product">
-                          <div class="product_image"><img src="/images/product_4.jpg" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_title"><a href="product.html">Smart Phone</a></div>
-                            <div class="product_price">$670</div>
-                          </div>
-                        </div>
-
-                        &lt;!&ndash; Product &ndash;&gt;
-                        <div class="product">
-                          <div class="product_image"><img src="/images/product_5.jpg" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_title"><a href="product.html">Smart Phone</a></div>
-                            <div class="product_price">$670</div>
-                          </div>
-                        </div>
-
-                        &lt;!&ndash; Product &ndash;&gt;
-                        <div class="product">
-                          <div class="product_image"><img src="/images/product_6.jpg" alt=""></div>
-                         &lt;!&ndash; <div class="product_extra product_hot"><a href="categories.html">Hot</a></div>&ndash;&gt;
-                          <div class="product_content">
-                            <div class="product_title"><a href="product.html">Smart Phone</a></div>
-                            <div class="product_price">$670</div>
-                          </div>
-                        </div>
-
-                        &lt;!&ndash; Product &ndash;&gt;
-                        <div class="product">
-                          <div class="product_image"><img src="/images/product_7.jpg" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_title"><a href="product.html">Smart Phone</a></div>
-                            <div class="product_price">$670</div>
-                          </div>
-                        </div>
-
-                        &lt;!&ndash; Product &ndash;&gt;
-                        <div class="product">
-                          <div class="product_image"><img src="/images/product_8.jpg" alt=""></div>
-                          &lt;!&ndash;<div class="product_extra product_sale"><a href="categories.html">Hot</a></div>&ndash;&gt;
-                          <div class="product_content">
-                            <div class="product_title"><a href="product.html">Smart Phone</a></div>
-                            <div class="product_price">$670</div>
-                          </div>
-                        </div>-->
-
                     </div>
-
+                    <div class="product_pagination">
+                        <ul>
+                            <li class="active"><a href="#">01.</a></li>
+                            <li><a href="#">02.</a></li>
+                            <li><a href="#">03.</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Ad -->
+    <!--&lt;!&ndash; Ad &ndash;&gt;
 
     <div class="avds_xl">
         <div class="container">
@@ -253,7 +224,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- Icon Boxes -->
 
@@ -373,5 +344,6 @@
 <script src="/plugins/easing/easing.js"></script>
 <script src="/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="/js/custom.js"></script>
+<script src="/js/categories.js"></script>
 </body>
 </html>

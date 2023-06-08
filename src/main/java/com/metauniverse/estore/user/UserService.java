@@ -1,4 +1,4 @@
-package com.metauniverse.estore.user.user_service;
+package com.metauniverse.estore.user;
 
 import com.metauniverse.estore.exception.email.EmailAlreadyTakenException;
 import com.metauniverse.estore.exception.email.UserNotFoundException;
