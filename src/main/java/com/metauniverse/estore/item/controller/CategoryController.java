@@ -17,6 +17,10 @@ public class CategoryController {
 
     private final ItemService itemService;
 
+    @GetMapping("/test")
+    public String testCategory(){
+        return "categories";
+    }
     @GetMapping("/all")
     public String getAllCategories(Model model) {
         Iterable<Item> items = itemService.getEveryItem();

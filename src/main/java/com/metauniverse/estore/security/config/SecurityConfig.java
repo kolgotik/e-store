@@ -1,6 +1,6 @@
 package com.metauniverse.estore.security.config;
 
-import com.metauniverse.estore.user.user_service.UserService;
+import com.metauniverse.estore.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

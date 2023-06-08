@@ -10,7 +10,7 @@ import com.metauniverse.estore.registration.token.ConfirmationTokenService;
 import com.metauniverse.estore.user.UserRepository;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
-import com.metauniverse.estore.user.user_service.UserService;
+import com.metauniverse.estore.user.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
