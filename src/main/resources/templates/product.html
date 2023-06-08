@@ -237,9 +237,9 @@
 						<div th:text="${item.get().price} + ' $'" class="details_price"></div>
 
 						<!-- In Stock -->
-						<div class="in_stock_container">
+						<div th:class="${availability == 'Out of stock' ? 'out_of_stock_container' : 'in_stock_container'}">
 							<div class="availability">Availability:</div>
-							<span>In Stock</span>
+							<span th:text="${availability}"></span>
 						</div>
 						<div class="details_text">
 							<p th:text="${item.get().generalDescription}"></p>
