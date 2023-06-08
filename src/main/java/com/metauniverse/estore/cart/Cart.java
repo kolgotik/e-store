@@ -24,4 +24,5 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     private List<Item> items;
     private BigDecimal totalPrice;
+    private Integer itemQuantity = 0;
 }
