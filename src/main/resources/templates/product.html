@@ -260,7 +260,7 @@
                         <div th:text="${item.get().price} + ' $'" class="details_price"></div>
 
                         <!-- In Stock -->
-                        <div th:class="${availability == 'Out of stock' ? 'out_of_stock_container' : 'in_stock_container'}">
+                        <div th:class="${availability == 'Out of stock' || availability == fewLeftMSG ? 'out_of_stock_container' : 'in_stock_container'}">
                             <div class="availability">Availability:</div>
                             <span id="availability" th:text="${availability}"></span>
                         </div>
@@ -272,13 +272,13 @@
                         <div class="product_quantity_container">
                             <div class="product_quantity clearfix">
                                 <span>Qty</span>
-                                <input id="quantity_input" type="text" pattern="[1-9]*" value="1" min="1">
-                                <div class="quantity_buttons">
+                                <input id="quantity_input" type="number" pattern="[1-9]*" value="1" min="1" th:max="${item.get().quantity}">
+                               <!-- <div class="quantity_buttons">
                                     <div id="quantity_inc_button" class="quantity_inc quantity_control"><i
                                             class="fa fa-chevron-up" aria-hidden="true"></i></div>
                                     <div id="quantity_dec_button" class="quantity_dec quantity_control"><i
                                             class="fa fa-chevron-down" aria-hidden="true"></i></div>
-                                </div>
+                                </div>-->
                             </div>
                             <div th:if="${item.isPresent()}" class="button cart_button"><a
                                                                th:href="@{/cart/add-item(itemId=${item.get().id})}"

@@ -1,9 +1,6 @@
 package com.metauniverse.estore.item.controller;
 
-import com.metauniverse.estore.item.Item;
-import com.metauniverse.estore.item.ItemRepository;
-import com.metauniverse.estore.item.ItemService;
-import com.metauniverse.estore.item.ItemType;
+import com.metauniverse.estore.item.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +18,20 @@ public class MainItemController {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
-    private static final String ITEM_AVAILABLE = "In stock";
-    private static final String ITEM_UNAVAILABLE = "Out of stock";
-
     @GetMapping("/get-item")
     public String getItemById(@RequestParam("itemId") long id, Model model) {
         Optional<Item> item = itemRepository.findById(id);
         Boolean isAvailable = itemService.isItemAvailable(id);
+        Integer itemQuantity = itemService.getQuantityOfItem(id);
         if (isAvailable) {
-            model.addAttribute("availability", ITEM_AVAILABLE);
+            model.addAttribute("availability", ItemAvailability.ITEM_AVAILABLE.getValue());
+            if (itemQuantity <= 5) {
+                model.addAttribute("availability", String.format(ItemAvailability.FEW_ITEMS_LEFT.getValue(), itemQuantity));
+                model.addAttribute("fewLeftMSG", String.format(ItemAvailability.FEW_ITEMS_LEFT.getValue(), itemQuantity));
+                System.out.println(String.format(ItemAvailability.FEW_ITEMS_LEFT.getValue(), itemQuantity));
+            }
         } else {
-            model.addAttribute("availability", ITEM_UNAVAILABLE);
+            model.addAttribute("availability", ItemAvailability.ITEM_UNAVAILABLE.getValue());
         }
         model.addAttribute("item", item);
         return "product";
