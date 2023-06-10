@@ -42,14 +42,13 @@ public class CartController {
         }
         Optional<Item> item = itemService.getItemById(id);
         if (item.isPresent()) {
-            if (!items.contains(item.get())) {
                 items.add(item.get());
                 cart.setItems(items);
                 for (Item i : items) {
                     log.info("ITEM: " + i.getName());
                 }
-            }
         }
+        cart.setItemQuantity(items.size());
         itemService.defineItemAvailability(id, model);
         model.addAttribute("item", item);
         return "redirect:/item/get-item?itemId=" + id;
