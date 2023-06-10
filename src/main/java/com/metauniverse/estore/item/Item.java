@@ -38,11 +38,11 @@ public class Item {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    /*@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
-    private Cart cart;
+    private Cart cart;*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -41,9 +41,6 @@ public class User implements UserDetails {
     private Boolean enabled = false;
     private BigDecimal balance;
 
-    @OneToOne(mappedBy = "user")
-    private Cart cart;
-
     public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;

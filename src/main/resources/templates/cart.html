@@ -219,14 +219,14 @@
 				<div class="col">
 
 					<!-- Cart Item -->
-					<div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+					<div th:object="${session.cart.items}" class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 						<!-- Name -->
-						<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
+						<div th:each="item : ${session.cart.items}" class="cart_item_product d-flex flex-row align-items-center justify-content-start">
 							<div class="cart_item_image">
 								<div><img src="/images/cart_1.jpg" alt=""></div>
 							</div>
 							<div class="cart_item_name_container">
-								<div class="cart_item_name"><a href="#">Smart Phone Deluxe Edition</a></div>
+								<div class="cart_item_name"><a th:text="${item.name}" th:href="@{/item/get-item(itemId=${item.id})}"></a></div>
 								<div class="cart_item_edit"><a href="#">Edit Product</a></div>
 							</div>
 						</div>

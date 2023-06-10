@@ -1,6 +1,8 @@
 package com.metauniverse.estore.item.controller;
 
 import com.metauniverse.estore.item.*;
+import com.metauniverse.estore.item.enums.ItemAvailability;
+import com.metauniverse.estore.item.enums.ItemType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,19 +23,8 @@ public class MainItemController {
     @GetMapping("/get-item")
     public String getItemById(@RequestParam("itemId") long id, Model model) {
         Optional<Item> item = itemRepository.findById(id);
-        Boolean isAvailable = itemService.isItemAvailable(id);
-        Integer itemQuantity = itemService.getQuantityOfItem(id);
-        if (isAvailable) {
-            model.addAttribute("availability", ItemAvailability.ITEM_AVAILABLE.getValue());
-            if (itemQuantity <= 5) {
-                model.addAttribute("availability", String.format(ItemAvailability.FEW_ITEMS_LEFT.getValue(), itemQuantity));
-                model.addAttribute("fewLeftMSG", String.format(ItemAvailability.FEW_ITEMS_LEFT.getValue(), itemQuantity));
-                System.out.println(String.format(ItemAvailability.FEW_ITEMS_LEFT.getValue(), itemQuantity));
-            }
-        } else {
-            model.addAttribute("availability", ItemAvailability.ITEM_UNAVAILABLE.getValue());
-        }
         model.addAttribute("item", item);
+        itemService.defineItemAvailability(id, model);
         return "product";
     }
 
