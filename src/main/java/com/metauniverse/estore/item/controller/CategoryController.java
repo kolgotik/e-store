@@ -1,9 +1,8 @@
 package com.metauniverse.estore.item.controller;
 
 import com.metauniverse.estore.item.Item;
-import com.metauniverse.estore.item.ItemRepository;
 import com.metauniverse.estore.item.ItemService;
-import com.metauniverse.estore.item.ItemType;
+import com.metauniverse.estore.item.enums.ItemType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

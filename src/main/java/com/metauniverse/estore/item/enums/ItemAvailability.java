@@ -1,4 +1,4 @@
-package com.metauniverse.estore.item;
+package com.metauniverse.estore.item.enums;
 
 import lombok.Getter;
 

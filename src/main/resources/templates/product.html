@@ -520,9 +520,9 @@ decButton.addEventListener('click', function() {
         } else {
             const availabilityDiv = document.getElementById('availability');
             const availability = availabilityDiv.textContent.trim();
-            if (availability.trim().toLowerCase() === 'in stock') {
-                window.location.href = event.target.href; // Navigate to the specified URL
-            } else {
+            if (availability.toLowerCase() === 'in stock' || availability.toLowerCase().startsWith('there are only')) {
+            window.location.href = event.target.href; // Navigate to the specified URL
+        } else {
                 alert('Item is out of stock');
             }
         }

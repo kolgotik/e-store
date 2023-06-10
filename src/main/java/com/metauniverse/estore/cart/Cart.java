@@ -17,12 +17,21 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
-    private Integer id;
-    @OneToOne
+    private Long id;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Item> items;
     private BigDecimal totalPrice;
     private Integer itemQuantity = 0;
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "user = " + user + ", " +
+                "totalPrice = " + totalPrice + ", " +
+                "itemQuantity = " + itemQuantity + ")";
+    }
 }
