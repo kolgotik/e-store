@@ -2,9 +2,7 @@ package com.metauniverse.estore.cart;
 
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemService;
-import com.metauniverse.estore.user.User;
 import com.metauniverse.estore.user.UserRepository;
-import com.metauniverse.estore.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
