@@ -215,42 +215,40 @@
 					</div>
 				</div>
 			</div>
-			<div class="row cart_items_row">
+			<div th:object="${session.cart.items}" class="row cart_items_row">
 				<div class="col">
-
-					<!-- Cart Item -->
-					<div th:object="${session.cart.items}" class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
-						<!-- Name -->
-						<div th:each="item : ${session.cart.items}" class="cart_item_product d-flex flex-row align-items-center justify-content-start">
-							<div class="cart_item_image">
-								<div><img src="/images/cart_1.jpg" alt=""></div>
+					<div th:each="item : ${session.cart.items}" class="cart_item">
+						<!-- Cart Item -->
+						<div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+							<!-- Name -->
+							<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
+								<div class="cart_item_image">
+									<div><img src="/images/cart_1.jpg" alt=""></div>
+								</div>
+								<div class="cart_item_name_container">
+									<div class="cart_item_name"><a th:text="${item.name}" th:href="@{/item/get-item(itemId=${item.id})}"></a></div>
+									<div class="cart_item_edit"><a href="#">Edit Product</a></div>
+								</div>
 							</div>
-							<div class="cart_item_name_container">
-								<div class="cart_item_name"><a th:text="${item.name}" th:href="@{/item/get-item(itemId=${item.id})}"></a></div>
-								<div class="cart_item_edit"><a href="#">Edit Product</a></div>
-							</div>
-						</div>
-						<!-- Price -->
-						<div class="cart_item_price">$790.90</div>
-						<!-- Quantity -->
-						<div class="cart_item_quantity">
-							<div class="product_quantity_container">
-								<div class="product_quantity clearfix">
-									<span>Qty</span>
-									<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-									<div class="quantity_buttons">
-										<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
-										<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+							<!-- Price -->
+							<div th:text="${item.price} + ' $'" class="cart_item_price">$790.90</div>
+							<!-- Quantity -->
+							<div class="cart_item_quantity">
+								<div class="product_quantity_container">
+									<div class="product_quantity clearfix">
+										<span>Qty</span>
+										<input id="quantity_input" type="number" pattern="[1-9]*" value="1" min="1" th:max="${item.quantity}">
 									</div>
 								</div>
 							</div>
+							<!-- Total -->
+							<div class="cart_item_total">$790.90</div>
 						</div>
-						<!-- Total -->
-						<div class="cart_item_total">$790.90</div>
 					</div>
-
 				</div>
 			</div>
+
+
 			<div class="row row_cart_buttons">
 				<div class="col">
 					<div class="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
@@ -355,7 +353,80 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 </div>
+<script>
+  // Get the input element
+  const quantityInput = document.getElementById('quantity_input');
 
+  // Add an event listener for input change
+  quantityInput.addEventListener('input', function() {
+    // Get the input value
+    const quantity = parseInt(quantityInput.value);
+
+    // Check if the value is greater than 0
+    if (quantity <= 0) {
+      // Display an error message or perform some action
+      alert('Please enter a value greater than 0.');
+
+      // Reset the input value to the minimum allowed value
+      quantityInput.value = 1;
+    }
+  });
+
+
+
+
+</script>
+<script>// Get the input element
+// Get the input element
+const quantityInput = document.getElementById('quantity_input');
+
+// Get the increment and decrement buttons
+const incButton = document.getElementById('quantity_inc_button');
+const decButton = document.getElementById('quantity_dec_button');
+
+// Add an event listener for increment button click
+incButton.addEventListener('click', function() {
+  // Get the current value
+  let quantity = parseInt(quantityInput.value);
+
+  // Increment the value
+  quantity++;
+
+  // Update the input value
+  quantityInput.value = quantity;
+
+  // Enable the decrease button
+  decButton.disabled = false;
+});
+
+// Add an event listener for decrement button click
+decButton.addEventListener('click', function() {
+  // Get the current value
+  let quantity = parseInt(quantityInput.value);
+
+  // Check if the value is already 1
+  if (quantity === 1) {
+    return; // Do nothing if it's 1
+  }
+
+  // Decrement the value
+  quantity--;
+
+  // Update the input value
+  quantityInput.value = quantity;
+
+  // Disable the decrease button if the value is 1
+  if (quantity === 1) {
+    decButton.disabled = true;
+  }
+});
+
+});
+
+
+
+
+</script>
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/styles/bootstrap4/popper.js"></script>
 <script src="/styles/bootstrap4/bootstrap.min.js"></script>

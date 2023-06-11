@@ -151,6 +151,8 @@
 	.cart_items_row
 	{
 		margin-top: 0;
+		display: flex;
+        flex-direction: column;
 	}
 	.cart_item:first-child
 	{
