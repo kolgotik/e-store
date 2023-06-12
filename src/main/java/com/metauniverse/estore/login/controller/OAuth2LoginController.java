@@ -3,6 +3,7 @@ package com.metauniverse.estore.login.controller;
 import com.metauniverse.estore.user.UserRepository;
 import com.metauniverse.estore.user.Role;
 import com.metauniverse.estore.user.User;
+import com.metauniverse.estore.util.cart_util.SessionCartBinder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ import java.util.Set;
 public class OAuth2LoginController {
 
     private final UserRepository userRepository;
+    private final SessionCartBinder cartBinder;
 
     @RequestMapping("/oauth2-success-login")
     public String saveOAuth2Principal(@AuthenticationPrincipal OAuth2User oAuth2User) {
@@ -32,6 +34,7 @@ public class OAuth2LoginController {
                     userRepository.save(newUser);
                     return newUser;
                 });
+        cartBinder.bindCartToUser(userFromDb);
 
         return "redirect:/";
     }
