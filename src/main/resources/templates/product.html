@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="/styles/product.css">
     <link rel="stylesheet" type="text/css" href="/styles/product_responsive.css">
+
 </head>
 <body>
 
@@ -272,17 +273,9 @@
                         <div class="product_quantity_container">
                             <div class="product_quantity clearfix">
                                 <span>Qty</span>
-                                <input id="quantity_input" type="number" pattern="[1-9]*" value="1" min="1" th:max="${item.get().quantity}">
-                               <!-- <div class="quantity_buttons">
-                                    <div id="quantity_inc_button" class="quantity_inc quantity_control"><i
-                                            class="fa fa-chevron-up" aria-hidden="true"></i></div>
-                                    <div id="quantity_dec_button" class="quantity_dec quantity_control"><i
-                                            class="fa fa-chevron-down" aria-hidden="true"></i></div>
-                                </div>-->
+                                <input id="quantity_input" type="number" pattern="[1-9]*" value="1" min="1" th:max="${item.get().quantity}" name="quantity">
                             </div>
-                            <div th:if="${item.isPresent()}" class="button cart_button"><a
-                                                               th:href="@{/cart/add-item(itemId=${item.get().id})}"
-                                                               onclick="addToCart(event)">Add to cart</a>
+                            <div th:if="${item.isPresent()}" class="button cart_button"><a id="addToCartLink" th:href="@{/cart/add-item(itemId=${item.get().id})}" onclick="passQtyValue(event)">Add to cart</a>
                             </div>
                         </div>
 
@@ -452,10 +445,20 @@
       quantityInput.value = 1;
     }
   });
+</script>
+<script>
+  function passQtyValue(event) {
+    event.preventDefault();
 
+    var quantityInput = document.getElementById('quantity_input');
+    var quantity = quantityInput.value;
 
+    var addToCartLink = document.getElementById('addToCartLink');
+    var href = addToCartLink.getAttribute('href');
+    href += '&qty=' + quantity;
 
-
+    window.location.href = href;
+  }
 </script>
 <script>// Get the input element
 // Get the input element
@@ -503,10 +506,6 @@ decButton.addEventListener('click', function() {
 });
 
 });
-
-
-
-
 </script>
 <script>
 	function addToCart(event) {
@@ -527,10 +526,6 @@ decButton.addEventListener('click', function() {
             }
         }
     }
-
-
-
-
 </script>
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/styles/bootstrap4/popper.js"></script>

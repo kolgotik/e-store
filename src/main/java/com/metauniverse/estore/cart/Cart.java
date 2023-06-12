@@ -1,19 +1,24 @@
 package com.metauniverse.estore.cart;
 
+import com.metauniverse.estore.item.CartItem;
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users_cart")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Cart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
@@ -21,10 +26,12 @@ public class Cart {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    private List<Item> items;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> items = new ArrayList<>();
     private BigDecimal totalPrice;
     private Integer itemQuantity = 0;
+    @Transient
+    private List<CartItem> cartItemList = new ArrayList<>();
 
     @Override
     public String toString() {

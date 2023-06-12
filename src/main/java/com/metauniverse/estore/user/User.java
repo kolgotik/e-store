@@ -40,6 +40,9 @@ public class User implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = false;
     private BigDecimal balance;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
     public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
         this.firstName = firstName;

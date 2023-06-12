@@ -233,11 +233,11 @@
 							<!-- Price -->
 							<div th:text="${item.price} + ' $'" class="cart_item_price">$790.90</div>
 							<!-- Quantity -->
-							<div class="cart_item_quantity">
-								<div class="product_quantity_container">
+							<div th:each="itemQty : ${session.itemsQty}" th:if="${itemQty.key == item.id}" class="cart_item_quantity">
+								<div  class="product_quantity_container">
 									<div class="product_quantity clearfix">
 										<span>Qty</span>
-										<input id="quantity_input" type="number" pattern="[1-9]*" value="1" min="1" th:max="${item.quantity}">
+										<input id="quantity_input" type="number" pattern="[1-9]*" th:value="${itemQty.value}" min="1" th:max="${item.quantity}" name="quantity">
 									</div>
 								</div>
 							</div>
