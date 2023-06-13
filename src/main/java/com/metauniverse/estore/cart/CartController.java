@@ -25,9 +25,7 @@ import java.util.Optional;
 @Slf4j
 public class CartController {
 
-    private final CartService cartService;
     private final ItemService itemService;
-    private final UserRepository userRepository;
     private List<Item> items;
     private List<CartItem> cartItems;
     private final SessionCartInitializer cartInitializer;
@@ -48,7 +46,6 @@ public class CartController {
     @GetMapping("/add-item")
     public String addItemToCart(@RequestParam("itemId") Long id, @RequestParam("qty") Integer selectedQuantity, Model model, HttpSession session) {
 
-        // TODO: 13.06.2023 Если в корзине уже есть предмет - тогда не надо его добвалять
         Cart cart = cartInitializer.initSessionCart(session);
         Map<Long, Integer> itemQuantityMap = itemQuantityHandler.initSessionItemQty(session);
         Optional<Item> item = itemService.getItemById(id);
