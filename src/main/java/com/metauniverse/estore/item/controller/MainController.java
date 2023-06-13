@@ -18,8 +18,7 @@ public class MainController {
     private final CartRepository cartRepository;
     @GetMapping
     public String mainPage(HttpSession session) {
-        Cart cart = cartInitializer.initSessionCart(session);
-        cartRepository.save(cart);
+        cartInitializer.initSessionCart(session);
 
         return "index";
     }

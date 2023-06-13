@@ -10,7 +10,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "users_cart")
@@ -30,6 +32,8 @@ public class Cart {
     private List<Item> items = new ArrayList<>();
     private BigDecimal totalPrice;
     private Integer itemQuantity = 0;
+    @Transient
+    private Map<Long, Integer> qtyOfEachItem = new HashMap<>();
     @Transient
     private List<CartItem> cartItemList = new ArrayList<>();
 

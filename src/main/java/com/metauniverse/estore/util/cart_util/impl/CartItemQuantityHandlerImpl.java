@@ -4,6 +4,7 @@ import com.metauniverse.estore.cart.Cart;
 import com.metauniverse.estore.item.CartItem;
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemService;
+import com.metauniverse.estore.item.enums.ItemAvailability;
 import com.metauniverse.estore.util.cart_util.CartItemQuantityHandler;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -22,8 +23,10 @@ import java.util.Optional;
 public class CartItemQuantityHandlerImpl implements CartItemQuantityHandler {
 
     private final ItemService itemService;
+    private final HttpSession session;
+
     @Override
-    public Map<Long, Integer> initSessionQuantityMap(HttpSession session) {
+    public Map<Long, Integer> initSessionItemQty(HttpSession session) {
         Map<Long, Integer> itemQuantityMap = (Map<Long, Integer>) session.getAttribute("itemsQty");
         if (itemQuantityMap == null) {
             itemQuantityMap = new HashMap<>();
@@ -33,7 +36,7 @@ public class CartItemQuantityHandlerImpl implements CartItemQuantityHandler {
     }
 
     @Override
-    public Integer calculateItemQuantity(/*ItemService itemService, */List<CartItem> items, Long id, Map<Long, Integer> map, Cart cart, Integer selectedQuantity, Model model, HttpSession session) {
+    public Integer calculateItemQuantity(List<CartItem> items, Long id, Integer selectedQuantity) {
         Optional<Item> item = itemService.getItemById(id);
         Integer totalQuantity = null;
         if (item.isPresent()) {
@@ -41,18 +44,25 @@ public class CartItemQuantityHandlerImpl implements CartItemQuantityHandler {
             CartItem cartItem = new CartItem(itemForCart);
             items.add(cartItem);
             cartItem.setQuantity(selectedQuantity);
-            map.put(itemForCart.getId(), selectedQuantity);
-            cart.setCartItemList(items);
             for (CartItem i : items) {
                 log.info("ITEM: " + "   " + i.getName() + i.getClass().getName());
             }
-            log.info("ITEM QUANTITY: " + "   " + map.toString());
             totalQuantity = items.stream().mapToInt(CartItem::getQuantity).sum();
-            session.setAttribute("cartItems", items);
-            //model.addAttribute("item", item.get());
-            itemService.defineItemAvailability(id, model);
-
         }
         return totalQuantity;
+    }
+
+    @Override
+    public boolean isItemAlreadyAdded(Long id, Model model) {
+        Cart cart = (Cart) session.getAttribute("cart");
+        List<Item> cartItemList = cart.getItems();
+        for (Item i : cartItemList) {
+            if (i.getId().equals(id)) {
+                model.addAttribute("itemAlreadyAddedMSG", ItemAvailability.ITEM_ALREADY_ADDED.getValue());
+                log.error("ITEM ALREADY ADDED: " + id);
+                return true;
+            }
+        }
+        return false;
     }
 }
