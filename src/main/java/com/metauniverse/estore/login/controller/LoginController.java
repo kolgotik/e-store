@@ -36,7 +36,6 @@ public class LoginController {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
             Authentication authentication = authenticationProvider.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            cartBinder.bindCartToUser(email);
             return "redirect:/";
         } catch (AuthenticationException e) {
             return "redirect:/login?error";

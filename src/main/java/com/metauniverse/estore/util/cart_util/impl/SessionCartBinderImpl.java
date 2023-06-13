@@ -36,11 +36,12 @@ public class SessionCartBinderImpl implements SessionCartBinder {
     }
 
     @Override
-    public void bindCartToUser(String email) {
+    public void bindCartToUserViaEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             Cart cart = (Cart) session.getAttribute("cart");
             user.get().setCart(cart);
+            userRepository.save(user.get());
         } else {
             throw new UserNotFoundException();
         }
