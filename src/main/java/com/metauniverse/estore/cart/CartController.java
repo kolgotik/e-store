@@ -29,7 +29,7 @@ public class CartController {
     private final ItemService itemService;
     private final UserRepository userRepository;
     private List<Item> items;
-    private List<CartItem> items2;
+    private List<CartItem> cartItems;
     private final SessionCartInitializer cartInitializer;
     private final CartItemQuantityHandler itemQuantityHandler;
 
@@ -39,7 +39,7 @@ public class CartController {
         Cart cartFromSession = (Cart) session.getAttribute("cart");
         List<Item> cartItems = cartFromSession.getItems();
         for (Item item : cartItems) {
-            log.info("Item: " + item.getName() + " ");
+            log.info("Item sfd: " + item.getName() + " ");
         }
         return "cart";
 
@@ -48,17 +48,21 @@ public class CartController {
     @GetMapping("/add-item")
     public String addItemToCart(@RequestParam("itemId") Long id, @RequestParam("qty") Integer selectedQuantity, Model model, HttpSession session) {
 
+        // TODO: 13.06.2023 Если в корзине уже есть предмет - тогда не надо его добвалять
         Cart cart = cartInitializer.initSessionCart(session);
-        Map<Long, Integer> itemQuantityMap = itemQuantityHandler.initSessionQuantityMap(session);
-
+        Map<Long, Integer> itemQuantityMap = itemQuantityHandler.initSessionItemQty(session);
         Optional<Item> item = itemService.getItemById(id);
-       if (item.isPresent()) {
-            Item itemForCart = item.get();
-            items.add(itemForCart);
-            itemQuantityMap.put(itemForCart.getId(), selectedQuantity);
-            cart.setItems(items);
+        if (!itemQuantityHandler.isItemAlreadyAdded(id, model)) {
+            if (item.isPresent()) {
+                Integer itemQuantity = itemQuantityHandler.calculateItemQuantity(cartItems, id, selectedQuantity);
+                Item itemForCart = item.get();
+                items.add(itemForCart);
+                itemQuantityMap.put(itemForCart.getId(), selectedQuantity);
+                cart.setItems(items);
+                cart.setItemQuantity(itemQuantity);
+                cart.setQtyOfEachItem(itemQuantityMap);
+            }
         }
-        cart.setItemQuantity(items.size());
         itemService.defineItemAvailability(id, model);
         model.addAttribute("item", item);
         return "redirect:/item/get-item?itemId=" + id;

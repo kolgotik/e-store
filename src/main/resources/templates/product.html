@@ -275,7 +275,7 @@
                                 <span>Qty</span>
                                 <input id="quantity_input" type="number" pattern="[1-9]*" value="1" min="1" th:max="${item.get().quantity}" name="quantity">
                             </div>
-                            <div th:if="${item.isPresent()}" class="button cart_button"><a id="addToCartLink" th:href="@{/cart/add-item(itemId=${item.get().id})}" onclick="passQtyValue(event)">Add to cart</a>
+                            <div th:if="${item.isPresent()}" class="button cart_button"><a id="addToCartLink" th:href="@{/cart/add-item(itemId=${item.get().id})}" onclick="addToCart(event)">Add to cart</a>
                             </div>
                         </div>
 
@@ -508,25 +508,30 @@ decButton.addEventListener('click', function() {
 });
 </script>
 <script>
-	function addToCart(event) {
-        event.preventDefault(); // Prevent the default behavior of the link
+  function addToCart(event) {
+    event.preventDefault(); // Prevent the default behavior of the link
 
-        const quantityInput = document.getElementById('quantity_input');
-        const quantity = parseInt(quantityInput.value);
+    var quantityInput = document.getElementById('quantity_input');
+    var quantity = parseInt(quantityInput.value);
 
-        if (quantity <= 0) {
-            alert('Quantity should be more than zero');
-        } else {
-            const availabilityDiv = document.getElementById('availability');
-            const availability = availabilityDiv.textContent.trim();
-            if (availability.toLowerCase() === 'in stock' || availability.toLowerCase().startsWith('there are only')) {
-            window.location.href = event.target.href; // Navigate to the specified URL
-        } else {
-                alert('Item is out of stock');
-            }
-        }
+    if (quantity <= 0) {
+      alert('Quantity should be more than zero');
+    } else {
+      var availabilityDiv = document.getElementById('availability');
+      var availability = availabilityDiv.textContent.trim();
+      if (availability.toLowerCase() === 'in stock' || availability.toLowerCase().startsWith('there are only')) {
+        var addToCartLink = event.target;
+        var href = addToCartLink.getAttribute('href');
+        href += '&qty=' + quantity;
+
+        window.location.href = href; // Navigate to the specified URL
+      } else {
+        alert('Item is out of stock');
+      }
     }
+  }
 </script>
+
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/styles/bootstrap4/popper.js"></script>
 <script src="/styles/bootstrap4/bootstrap.min.js"></script>

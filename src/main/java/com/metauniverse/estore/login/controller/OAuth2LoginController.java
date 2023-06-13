@@ -34,7 +34,7 @@ public class OAuth2LoginController {
                     userRepository.save(newUser);
                     return newUser;
                 });
-        cartBinder.bindCartToUser(userFromDb);
+        //cartBinder.bindCartToUser(userFromDb);
 
         return "redirect:/";
     }
