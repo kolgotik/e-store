@@ -237,7 +237,7 @@
 								<div  class="product_quantity_container">
 									<div class="product_quantity clearfix">
 										<span>Qty</span>
-										<input id="quantity_input" type="number" pattern="[1-9]*" th:value="${itemQty.value}" min="1" th:max="${item.quantity}" name="quantity" onclick="this.form.submit(); window.location.reload();">
+										<input th:id="'quantity_input' + ${itemQty.key}" type="number" pattern="[1-9]*" th:value="${itemQty.value}" min="1" th:max="${item.quantity}" name="quantity"  th:onclick="'onQuantityInputChange(\'' + ${itemQty.key} + '\')'">
 									</div>
 								</div>
 							</div>
@@ -355,6 +355,48 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 </div>
+<script>
+  function sendQuantity(itemId, quantity) {
+    // Create an object with the data to be sent
+    const data = {
+      itemId: itemId,
+      quantity: quantity
+    };
+
+    // Make a POST request to the specified URL
+    fetch('/cart/change-quantity', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (response.ok) {
+        // Handle successful response
+        console.log('Data sent successfully');
+        window.location.reload();
+      } else {
+        // Handle error response
+        console.error('Error sending data');
+      }
+    })
+    .catch(error => {
+      // Handle fetch error
+      console.error('Error:', error);
+    });
+  }
+
+  function onQuantityInputChange(itemId) {
+    const quantityInput = document.getElementById('quantity_input'+itemId);
+
+    // Get the value of the quantity input
+    const quantity = parseInt(quantityInput.value);
+
+    // Call the sendQuantity() function with the item ID and quantity
+    sendQuantity(itemId, quantity);
+  }
+</script>
 <script>
   // Get the input element
   const quantityInput = document.getElementById('quantity_input');
