@@ -1,6 +1,5 @@
 package com.metauniverse.estore.item.controller;
 
-import com.metauniverse.estore.cart.Cart;
 import com.metauniverse.estore.cart.CartRepository;
 import com.metauniverse.estore.util.cart_util.SessionCartInitializer;
 import jakarta.servlet.http.HttpSession;
