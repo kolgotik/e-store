@@ -1,8 +1,8 @@
 package com.metauniverse.estore.util.cart_util.impl;
 
 import com.metauniverse.estore.cart.Cart;
-import com.metauniverse.estore.item.ItemDTO;
 import com.metauniverse.estore.item.Item;
+import com.metauniverse.estore.item.ItemDTO;
 import com.metauniverse.estore.item.ItemService;
 import com.metauniverse.estore.item.enums.ItemAvailability;
 import com.metauniverse.estore.util.cart_util.CartItemQuantityHandler;

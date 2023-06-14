@@ -237,12 +237,14 @@
 								<div  class="product_quantity_container">
 									<div class="product_quantity clearfix">
 										<span>Qty</span>
-										<input id="quantity_input" type="number" pattern="[1-9]*" th:value="${itemQty.value}" min="1" th:max="${item.quantity}" name="quantity">
+										<input id="quantity_input" type="number" pattern="[1-9]*" th:value="${itemQty.value}" min="1" th:max="${item.quantity}" name="quantity" onclick="this.form.submit(); window.location.reload();">
 									</div>
 								</div>
 							</div>
 							<!-- Total -->
-							<div class="cart_item_total">$790.90</div>
+							<div th:each="itemPrice : ${session.totalPriceOfEachItem}" th:if="${itemPrice.key == item.id}">
+								<div th:text="${itemPrice.value} + ' $'"  class="cart_item_total">0 $</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -255,7 +257,7 @@
 						<div class="button continue_shopping_button"><a href="#">Continue shopping</a></div>
 						<div class="cart_buttons_right ml-lg-auto">
 							<div class="button clear_cart_button"><a href="#">Clear cart</a></div>
-							<div class="button update_cart_button"><a href="#">Update cart</a></div>
+							<div class="button update_cart_button"><a onClick="window.location.reload();" href="#">Update cart</a></div>
 						</div>
 					</div>
 				</div>
@@ -315,7 +317,7 @@
 								</li>
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="cart_total_title">Total</div>
-									<div class="cart_total_value ml-auto">$790.90</div>
+									<div th:text="${session.cart.totalPrice} + ' $'" class="cart_total_value ml-auto">0 $</div>
 								</li>
 							</ul>
 						</div>

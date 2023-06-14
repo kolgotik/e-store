@@ -1,7 +1,6 @@
 package com.metauniverse.estore.item.controller;
 
 import com.metauniverse.estore.item.*;
-import com.metauniverse.estore.item.enums.ItemAvailability;
 import com.metauniverse.estore.item.enums.ItemType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
