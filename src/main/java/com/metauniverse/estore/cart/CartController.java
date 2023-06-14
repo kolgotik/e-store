@@ -3,7 +3,6 @@ package com.metauniverse.estore.cart;
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemDTO;
 import com.metauniverse.estore.item.ItemService;
-import com.metauniverse.estore.item.ItemServiceImpl;
 import com.metauniverse.estore.util.cart_util.CartItemQuantityHandler;
 import com.metauniverse.estore.util.cart_util.CartPriceHandler;
 import com.metauniverse.estore.util.cart_util.SessionCartInitializer;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,6 +47,7 @@ public class CartController {
         return "cart";
 
     }
+
     @GetMapping("/add-item")
     public String addItemToCart(@RequestParam("itemId") Long id, @RequestParam("qty") Integer selectedQuantity, Model model, HttpSession session) {
 
@@ -69,10 +68,5 @@ public class CartController {
         itemService.defineItemAvailability(id, model);
         model.addAttribute("item", item);
         return "redirect:/item/get-item?itemId=" + id;
-    }
-    @PostMapping("/quantity")
-    public String manageItemQuantity(@RequestParam("quantity") Integer quantity) {
-        log.info("SELECTED QUANTITY: " + quantity);
-        return "redirect:/cart";
     }
 }
