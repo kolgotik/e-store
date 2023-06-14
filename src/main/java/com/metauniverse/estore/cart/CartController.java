@@ -50,12 +50,15 @@ public class CartController {
 
     @GetMapping("/add-item")
     public String addItemToCart(@RequestParam("itemId") Long id, @RequestParam("qty") Integer selectedQuantity, Model model, HttpSession session) {
-
+        Integer factualQuantity = itemService.getQuantityOfItem(id);
         Cart cart = cartInitializer.initSessionCart(session);
         Map<Long, Integer> itemQuantityMap = itemQuantityHandler.initSessionItemQty(session);
         Optional<Item> item = itemService.getItemById(id);
         if (!itemQuantityHandler.isItemAlreadyAdded(id, model)) {
             if (item.isPresent()) {
+                if (selectedQuantity > factualQuantity) {
+                    selectedQuantity = factualQuantity;
+                }
                 Integer itemQuantity = itemQuantityHandler.calculateItemQuantity(itemDTOS, id, selectedQuantity);
                 Item itemForCart = item.get();
                 items.add(itemForCart);
