@@ -1,9 +1,8 @@
 package com.metauniverse.estore.cart;
 
-import com.metauniverse.estore.item.CartItem;
+import com.metauniverse.estore.item.ItemDTO;
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemService;
-import com.metauniverse.estore.user.UserRepository;
 import com.metauniverse.estore.util.cart_util.CartItemQuantityHandler;
 import com.metauniverse.estore.util.cart_util.SessionCartInitializer;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +26,7 @@ public class CartController {
 
     private final ItemService itemService;
     private List<Item> items;
-    private List<CartItem> cartItems;
+    private List<ItemDTO> itemDTOS;
     private final SessionCartInitializer cartInitializer;
     private final CartItemQuantityHandler itemQuantityHandler;
 
@@ -51,7 +50,7 @@ public class CartController {
         Optional<Item> item = itemService.getItemById(id);
         if (!itemQuantityHandler.isItemAlreadyAdded(id, model)) {
             if (item.isPresent()) {
-                Integer itemQuantity = itemQuantityHandler.calculateItemQuantity(cartItems, id, selectedQuantity);
+                Integer itemQuantity = itemQuantityHandler.calculateItemQuantity(itemDTOS, id, selectedQuantity);
                 Item itemForCart = item.get();
                 items.add(itemForCart);
                 itemQuantityMap.put(itemForCart.getId(), selectedQuantity);

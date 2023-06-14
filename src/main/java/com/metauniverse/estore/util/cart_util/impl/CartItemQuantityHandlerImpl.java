@@ -1,7 +1,7 @@
 package com.metauniverse.estore.util.cart_util.impl;
 
 import com.metauniverse.estore.cart.Cart;
-import com.metauniverse.estore.item.CartItem;
+import com.metauniverse.estore.item.ItemDTO;
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemService;
 import com.metauniverse.estore.item.enums.ItemAvailability;
@@ -36,18 +36,18 @@ public class CartItemQuantityHandlerImpl implements CartItemQuantityHandler {
     }
 
     @Override
-    public Integer calculateItemQuantity(List<CartItem> items, Long id, Integer selectedQuantity) {
+    public Integer calculateItemQuantity(List<ItemDTO> items, Long id, Integer selectedQuantity) {
         Optional<Item> item = itemService.getItemById(id);
         Integer totalQuantity = null;
         if (item.isPresent()) {
             Item itemForCart = item.get();
-            CartItem cartItem = new CartItem(itemForCart);
+            ItemDTO cartItem = new ItemDTO(itemForCart);
             items.add(cartItem);
             cartItem.setQuantity(selectedQuantity);
-            for (CartItem i : items) {
+            for (ItemDTO i : items) {
                 log.info("ITEM: " + "   " + i.getName() + i.getClass().getName());
             }
-            totalQuantity = items.stream().mapToInt(CartItem::getQuantity).sum();
+            totalQuantity = items.stream().mapToInt(ItemDTO::getQuantity).sum();
         }
         return totalQuantity;
     }
