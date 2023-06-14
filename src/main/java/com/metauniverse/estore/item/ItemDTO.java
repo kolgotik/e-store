@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CartItem {
+public class ItemDTO {
 
     private Long id;
     private String name;
@@ -22,9 +22,9 @@ public class CartItem {
     private String detailedDescription;
     private String photo;
     private String video;
-    public CartItem() {
+    public ItemDTO() {
     }
-    public CartItem(Item item) {
+    public ItemDTO(Item item) {
         this.id = item.getId();
         this.name = item.getName();
         this.brand = item.getBrand();

@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,7 @@ public class LogoutHandlerImpl implements LogoutHandler {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
 
-        log.info("ITEM class list: " + cart.getItems().toString() + " CART-ITEM class list: " + cart.getCartItemList());
+        log.info("ITEM class list: " + cart.getItems().toString() + " CART-ITEM class list: " + cart.getItemDTOList());
         try {
             request.logout();
 

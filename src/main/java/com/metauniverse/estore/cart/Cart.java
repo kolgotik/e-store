@@ -1,6 +1,6 @@
 package com.metauniverse.estore.cart;
 
-import com.metauniverse.estore.item.CartItem;
+import com.metauniverse.estore.item.ItemDTO;
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.user.User;
 import jakarta.persistence.*;
@@ -35,7 +35,7 @@ public class Cart {
     @Transient
     private Map<Long, Integer> qtyOfEachItem = new HashMap<>();
     @Transient
-    private List<CartItem> cartItemList = new ArrayList<>();
+    private List<ItemDTO> itemDTOList = new ArrayList<>();
 
     @Override
     public String toString() {
