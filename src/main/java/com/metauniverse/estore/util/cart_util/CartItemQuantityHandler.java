@@ -10,7 +10,10 @@ import java.util.Map;
 public interface CartItemQuantityHandler {
 
     Map<Long, Integer> initSessionItemQty(HttpSession session);
+    Integer calculateItemQuantity(Long id, Integer selectedQuantity);
+
     Integer calculateItemQuantity(List<ItemDTO> items, Long id, Integer selectedQuantity);
+
     boolean isItemAlreadyAdded(Long id, Model model);
 
 }
