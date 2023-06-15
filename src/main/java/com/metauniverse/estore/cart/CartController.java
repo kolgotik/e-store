@@ -44,6 +44,7 @@ public class CartController {
         for (Item item : cartItems) {
             log.info("Item sfd: " + item.getName() + " ");
         }
+        log.info("ITEM LIST SESSION: " + cartItems);
         return "cart";
 
     }
@@ -53,21 +54,26 @@ public class CartController {
         Integer factualQuantity = itemService.getQuantityOfItem(id);
         Cart cart = cartInitializer.initSessionCart(session);
         Map<Long, Integer> itemQuantityMap = itemQuantityHandler.initSessionItemQty(session);
+        log.info("INIT QTY MAP: " + itemQuantityMap.toString());
         Optional<Item> item = itemService.getItemById(id);
         if (!itemQuantityHandler.isItemAlreadyAdded(id, model)) {
             if (item.isPresent()) {
                 if (selectedQuantity > factualQuantity) {
                     selectedQuantity = factualQuantity;
                 }
-                Integer itemQuantity = itemQuantityHandler.calculateItemQuantity(itemDTOS, id, selectedQuantity);
                 Item itemForCart = item.get();
                 items.add(itemForCart);
                 itemQuantityMap.put(itemForCart.getId(), selectedQuantity);
                 cart.setItems(items);
+                Integer itemQuantity = itemQuantityHandler.calculateTotalItemQuantity(cart.getItems(), id, session);
+                log.info("ITEM QTY: " + itemQuantity);
                 cart.setItemQuantity(itemQuantity);
                 cart.setQtyOfEachItem(itemQuantityMap);
             }
         }
+        log.info("SESSION CART: " + cart.toString());
+        log.info("SESSION CART LIST: " + cart.getItems());
+        log.info("QTY MAP: " + itemQuantityMap.toString());
         itemService.defineItemAvailability(id, model);
         model.addAttribute("item", item);
         return "redirect:/item/get-item?itemId=" + id;

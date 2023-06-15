@@ -33,36 +33,25 @@ public class CartItemQuantityHandlerImpl implements CartItemQuantityHandler {
     }
 
     @Override
-    public Integer calculateItemQuantity(Long id, Integer selectedQuantity) {
-        Optional<Item> item = itemService.getItemById(id);
-        List<ItemDTO> items = new ArrayList<>();
-        Integer totalQuantity = null;
-        if (item.isPresent()) {
-            Item itemForCart = item.get();
-            ItemDTO cartItem = new ItemDTO(itemForCart);
-            items.add(cartItem);
-            cartItem.setQuantity(selectedQuantity);
-            for (ItemDTO i : items) {
-                log.info("ITEM: " + "   " + i.getName() + i.getClass().getName());
+    public Integer calculateItemQuantity(List<Item> sessionCartItems, Long id, Integer selectedQuantity, HttpSession session) {
+        Map<Long, Integer> itemsQtyMap = (Map<Long, Integer>) session.getAttribute("itemsQty");
+        Integer totalQuantity = 0;
+        for (Item item : sessionCartItems) {
+            if (itemsQtyMap.containsKey(item.getId())) {
+
             }
-            totalQuantity = items.stream().mapToInt(ItemDTO::getQuantity).sum();
         }
         return totalQuantity;
     }
 
     @Override
-    public Integer calculateItemQuantity(List<ItemDTO> items, Long id, Integer selectedQuantity) {
-        Optional<Item> item = itemService.getItemById(id);
-        Integer totalQuantity = null;
-        if (item.isPresent()) {
-            Item itemForCart = item.get();
-            ItemDTO cartItem = new ItemDTO(itemForCart);
-            items.add(cartItem);
-            cartItem.setQuantity(selectedQuantity);
-            for (ItemDTO i : items) {
-                log.info("ITEM: " + "   " + i.getName() + i.getClass().getName());
+    public Integer calculateTotalItemQuantity(List<Item> sessionCartItems, Long id, HttpSession session) {
+        Map<Long, Integer> itemsQtyMap = (Map<Long, Integer>) session.getAttribute("itemsQty");
+        Integer totalQuantity = 0;
+        for (Item item : sessionCartItems) {
+            if (itemsQtyMap.containsKey(item.getId())) {
+                totalQuantity += itemsQtyMap.get(item.getId());
             }
-            totalQuantity = items.stream().mapToInt(ItemDTO::getQuantity).sum();
         }
         return totalQuantity;
     }

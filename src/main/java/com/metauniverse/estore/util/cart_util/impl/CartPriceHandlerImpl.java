@@ -25,9 +25,11 @@ public class CartPriceHandlerImpl implements CartPriceHandler {
         List<Item> itemList = cart.getItems();
         if (!itemList.isEmpty()) {
             for (Item item : itemList) {
-                Integer quantityOfItem = itemsQty.get(item.getId());
-                BigDecimal priceOfItem = item.getPrice().multiply(BigDecimal.valueOf(quantityOfItem));
-                totalPrice = totalPrice.add(priceOfItem);
+                if (itemsQty.containsKey(item.getId())) {
+                    Integer quantityOfItem = itemsQty.get(item.getId());
+                    BigDecimal priceOfItem = item.getPrice().multiply(BigDecimal.valueOf(quantityOfItem));
+                    totalPrice = totalPrice.add(priceOfItem);
+                }
             }
         }
         return totalPrice;

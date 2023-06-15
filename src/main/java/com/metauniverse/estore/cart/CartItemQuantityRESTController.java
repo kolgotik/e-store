@@ -44,12 +44,15 @@ public class CartItemQuantityRESTController {
             itemQuantityMap.put(itemId, selectedQuantity);
         }
         log.info("MAP: " + cart.getQtyOfEachItem());
+        log.info("SESSION MAP: " + itemQuantityMap);
         Integer totalQuantity = null;
         if (item.isPresent()) {
             if (itemList.contains(item.get())) {
-                totalQuantity = cart.getQtyOfEachItem().values().stream()
+                totalQuantity = quantityHandler.calculateTotalItemQuantity(itemList, itemId, session);
+                log.info("TOTAL QTY: " + totalQuantity);
+            /*cart.getQtyOfEachItem().values().stream()
                         .mapToInt(Integer::intValue)
-                        .sum();
+                        .sum();*/
             }
         }
         cart.setItemQuantity(totalQuantity);
