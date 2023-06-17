@@ -21,7 +21,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-    @OneToMany(mappedBy = "order")
+    @CollectionTable(joinColumns = @JoinColumn(name = "item_id"))
+    @ElementCollection
     private List<Item> items;
     private String userName;
     private String toCountry;

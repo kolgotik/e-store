@@ -1,5 +1,6 @@
 package com.metauniverse.estore.security.config;
 
+import com.metauniverse.estore.logout.LogoutHandlerImpl;
 import com.metauniverse.estore.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ public class SecurityConfig {
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    private final LogoutHandlerImpl logoutHandler = new LogoutHandlerImpl();
 
     public SecurityConfig(UserService userService) {
         this.userService = userService;
@@ -51,6 +53,7 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 .logout()
+                .addLogoutHandler(logoutHandler)
                 .logoutSuccessUrl("/login?logout=true")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")

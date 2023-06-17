@@ -29,8 +29,7 @@ public class CartItemQuantityRESTController {
             itemQuantityMap = new HashMap<>();
             session.setAttribute("itemsQty", itemQuantityMap);
         }
-        String id = request.get("itemId");
-        Long itemId = Long.valueOf(id);
+        Long itemId = Long.valueOf(request.get("itemId"));
         Optional<Item> item = itemService.getItemById(itemId);
 
         Integer factualQuantity = itemService.getQuantityOfItem(itemId);
@@ -50,9 +49,6 @@ public class CartItemQuantityRESTController {
             if (itemList.contains(item.get())) {
                 totalQuantity = quantityHandler.calculateTotalItemQuantity(itemList, itemId, session);
                 log.info("TOTAL QTY: " + totalQuantity);
-            /*cart.getQtyOfEachItem().values().stream()
-                        .mapToInt(Integer::intValue)
-                        .sum();*/
             }
         }
         cart.setItemQuantity(totalQuantity);

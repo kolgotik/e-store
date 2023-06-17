@@ -1,6 +1,5 @@
 package com.metauniverse.estore.user;
 
-import com.metauniverse.estore.user.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

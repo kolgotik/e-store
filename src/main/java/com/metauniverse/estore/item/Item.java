@@ -1,11 +1,11 @@
 
 package com.metauniverse.estore.item;
 
-import com.metauniverse.estore.cart.Cart;
-import com.metauniverse.estore.order.Order;
-import com.metauniverse.estore.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
@@ -34,9 +34,9 @@ public class Item {
     private String detailedDescription;
     private String photo;
     private String video;
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Order order;
+    private Order order;*/
 
     /*@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
