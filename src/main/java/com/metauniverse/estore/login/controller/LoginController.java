@@ -1,10 +1,8 @@
 package com.metauniverse.estore.login.controller;
 
 import com.metauniverse.estore.registration.RegistrationRequest;
-import com.metauniverse.estore.util.cart_util.SessionCartBinder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     private final AuthenticationProvider authenticationProvider;
-    private final SessionCartBinder cartBinder;
 
     @GetMapping("/login")
     public String showLoginPage(RegistrationRequest request, Model model) {
