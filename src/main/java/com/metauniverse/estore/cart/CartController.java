@@ -36,11 +36,7 @@ public class CartController {
         BigDecimal totalPrice = cartPriceHandler.getTotalPrice(session);
         cartFromSession.setTotalPrice(totalPrice);
         cartPriceHandler.getTotalPriceForEachItem(session);
-        List<Item> cartItems = cartFromSession.getItems();
-        for (Item item : cartItems) {
-            log.info("Item sfd: " + item.getName() + " ");
-        }
-        log.info("ITEM LIST SESSION: " + cartItems);
+        log.info("CART: " + cartFromSession);
         return "cart";
 
     }
@@ -79,5 +75,34 @@ public class CartController {
         itemService.defineItemAvailability(id, model);
         model.addAttribute("item", item);
         return "redirect:/item/get-item?itemId=" + id;
+    }
+
+    @GetMapping("/remove-item")
+    public String removeItemFromCart(@RequestParam("itemId") Long id, HttpSession session) {
+        Map<Long, Integer> itemQuantityMap = itemQuantityHandler.initSessionItemQty(session);
+        log.info("INIT QTY MAP before remove: " + itemQuantityMap.toString());
+        Cart cartFromSession = (Cart) session.getAttribute("cart");
+        if (cartFromSession.getItems().isEmpty()) {
+            items = new ArrayList<>();
+        }
+        List<Item> cartItemList = cartFromSession.getItems();
+        Iterator<Item> itemIterator = items.iterator();
+        log.info("Cart list: " + cartItemList);
+        while (itemIterator.hasNext()) {
+            Item item = itemIterator.next();
+            if (Objects.equals(item.getId(), id)) {
+                itemIterator.remove();
+                itemQuantityMap.remove(id);
+                Integer totalItemQuantity = itemQuantityHandler.calculateTotalItemQuantity(cartFromSession.getItems(), id, session);
+                BigDecimal totalPrice = cartPriceHandler.getTotalPrice(session);
+                cartFromSession.setItemQuantity(totalItemQuantity);
+                cartFromSession.setTotalPrice(totalPrice);
+                log.info("INIT QTY MAP after remove: " + itemQuantityMap.toString());
+            }
+        }
+        cartFromSession.setQtyOfEachItem(itemQuantityMap);
+        cartFromSession.setItems(items);
+        log.info("FINAL SESSION CART: " + cartFromSession);
+        return "redirect:/cart";
     }
 }

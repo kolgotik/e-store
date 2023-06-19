@@ -217,6 +217,13 @@
 			</div>
 			<div th:object="${session.cart.items}" class="row cart_items_row">
 				<div class="col">
+					<div th:unless="${#lists.size(session.cart.items) > 0}" style="text-align: center;">
+						<br>
+						<br>
+						<p style="font-size: 20px; font-weight: bold;">Your cart is empty.</p>
+						<br>
+						<br>
+					</div>
 					<div th:each="item : ${session.cart.items}" class="cart_item">
 						<!-- Cart Item -->
 						<div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
@@ -227,7 +234,7 @@
 								</div>
 								<div class="cart_item_name_container">
 									<div class="cart_item_name"><a th:text="${item.name}" th:href="@{/item/get-item(itemId=${item.id})}"></a></div>
-									<div class="cart_item_edit"><a href="#">Edit Product</a></div>
+									<div class="cart_item_edit"><a style="font-size: 18px; color: #e0432e;" th:href="@{/cart/remove-item(itemId=${item.id})}" onclick="return confirm('Delete item?')">Remove</a></div>
 								</div>
 							</div>
 							<!-- Price -->
@@ -254,7 +261,7 @@
 			<div class="row row_cart_buttons">
 				<div class="col">
 					<div class="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-						<div class="button continue_shopping_button"><a href="#">Continue shopping</a></div>
+						<div class="button continue_shopping_button"><a href="/">Continue shopping</a></div>
 						<div class="cart_buttons_right ml-lg-auto">
 							<div class="button clear_cart_button"><a href="#">Clear cart</a></div>
 							<div class="button update_cart_button"><a onClick="window.location.reload();" href="#">Update cart</a></div>
