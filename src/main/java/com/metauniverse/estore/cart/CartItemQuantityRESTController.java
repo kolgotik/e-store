@@ -21,7 +21,7 @@ public class CartItemQuantityRESTController {
     private final ItemService itemService;
 
     @PostMapping("/change-quantity")
-    public ResponseEntity<String> manageItemQuantity(@RequestBody Map<String, String> request, HttpSession session) {
+    public ResponseEntity<String> manageItemQuantity(@RequestBody Map<String, String> changeQtyRequest, HttpSession session) {
         Map<Long, Integer> itemQuantityMap = (Map<Long, Integer>) session.getAttribute("itemsQty");
         Cart cart = (Cart) session.getAttribute("cart");
         List<Item> itemList = cart.getItems();
@@ -29,12 +29,15 @@ public class CartItemQuantityRESTController {
             itemQuantityMap = new HashMap<>();
             session.setAttribute("itemsQty", itemQuantityMap);
         }
-        Long itemId = Long.valueOf(request.get("itemId"));
+        Long itemId = Long.valueOf(changeQtyRequest.get("itemId"));
         Optional<Item> item = itemService.getItemById(itemId);
 
         Integer factualQuantity = itemService.getQuantityOfItem(itemId);
-        Integer selectedQuantity = Integer.valueOf(request.get("quantity"));
-        if (selectedQuantity > factualQuantity || selectedQuantity < 1) {
+        Integer selectedQuantity = Integer.valueOf(changeQtyRequest.get("quantity"));
+        if (selectedQuantity > factualQuantity) {
+            selectedQuantity = factualQuantity;
+        }
+        if (selectedQuantity < 1) {
             selectedQuantity = 1;
         }
         log.info("id " + itemId);

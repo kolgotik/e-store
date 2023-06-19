@@ -237,7 +237,7 @@
 								<div  class="product_quantity_container">
 									<div class="product_quantity clearfix">
 										<span>Qty</span>
-										<input th:id="'quantity_input' + ${itemQty.key}" type="number" pattern="[1-9]*" th:value="${itemQty.value}" min="1" th:max="${item.quantity}" name="quantity"  th:oninput="'onQuantityInputChange(\'' + ${itemQty.key} + '\')'">
+										<input th:id="'quantity_input' + ${itemQty.key}" type="number" pattern="[1-9]*" th:value="${itemQty.value}" min="1" th:max="${item.quantity}" name="quantity"  th:onchange="'onQuantityInputChange(\'' + ${itemQty.key} + '\')'">
 									</div>
 								</div>
 							</div>
