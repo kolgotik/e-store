@@ -174,7 +174,9 @@
             </div>
             <div class="row">
                 <div class="col">
-
+                    <div th:unless="${#lists.size(consoles) > 0}" style="text-align: center;">
+                        <p style="font-size: 20px; font-weight: bold;">No items found.</p>
+                    </div>
                     <div class="product_grid">
                         <div th:if="${#lists.size(consoles) > 0}">
                             <div th:each="item : ${consoles}" class="product">
@@ -199,10 +201,6 @@
                 </div>
             </div>
         </div>
-        <div th:unless="${#lists.size(consoles) > 0}" style="text-align: center;">
-            <p style="font-size: 20px; font-weight: bold;">No items found.</p>
-        </div>
-
     </div>
 </div>
 
