@@ -18,11 +18,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "user_id")
     private User user;
-    @CollectionTable(joinColumns = @JoinColumn(name = "item_id"))
-    @ElementCollection
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(joinColumns = @JoinColumn(name = "order_id"))
     private List<Item> items;
     private String userName;
     private String toCountry;
@@ -30,4 +31,19 @@ public class Order {
     private String toStreet;
     private String postalCode;
     private LocalDateTime shipDate;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", items=" + items +
+                ", userName='" + userName + '\'' +
+                ", toCountry='" + toCountry + '\'' +
+                ", toCity='" + toCity + '\'' +
+                ", toStreet='" + toStreet + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", shipDate=" + shipDate +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.metauniverse.estore.user;
 
 
 import com.metauniverse.estore.cart.Cart;
+import com.metauniverse.estore.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,7 +44,8 @@ public class User implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
     public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
