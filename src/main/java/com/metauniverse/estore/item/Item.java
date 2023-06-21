@@ -1,6 +1,7 @@
 
 package com.metauniverse.estore.item;
 
+import com.metauniverse.estore.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,6 @@ public class Item {
     private String detailedDescription;
     private String photo;
     private String video;
-   /* @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Order order;*/
 
     /*@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
