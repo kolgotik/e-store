@@ -1,13 +1,15 @@
 package com.metauniverse.estore.item.controller;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.metauniverse.estore.aws.s3.util.AmazonS3Initializer;
+import com.metauniverse.estore.aws.s3.util.S3BucketDataManager;
 import com.metauniverse.estore.item.*;
 import com.metauniverse.estore.item.enums.ItemType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -19,6 +21,8 @@ public class MainItemController {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+    private final AmazonS3Initializer initializer;
+    private final S3BucketDataManager dataManager;
     @GetMapping("/get-item")
     public String getItemById(@RequestParam("itemId") long id, Model model) {
         Optional<Item> item = itemRepository.findById(id);
@@ -37,16 +41,19 @@ public class MainItemController {
         }
     }
 
-    @GetMapping("/create-item")
-    public String createItem() {
-
+    @GetMapping("/item-creation")
+    public String showItemCreationPage(Model model) {
         Item item = new Item();
-        item.setItemType(ItemType.CONSOLE.getValue());
-        item.setCategory("sony console");
-        item.setBrand("SONY");
-        item.setName("PS4 1TB");
-        item.setPrice(BigDecimal.valueOf(356.43));
-
+        model.addAttribute("item", item);
+        return "item-creation";
+    }
+    @PostMapping("/create-item")
+    public String createItem(@ModelAttribute("item") Item item, @RequestParam("photoFile")MultipartFile photoFile) {
+        itemRepository.save(item);
+        AmazonS3 client = initializer.init();
+        dataManager.putObjectImageLink(item.getId(), item.getPhoto(), client);
+        item.setPhoto(null);
+        item.setVideo(null);
         itemRepository.save(item);
 
         return "redirect:/";
