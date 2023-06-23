@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Item Creation</title>
+</head>
+<body>
+<h1>Item Creation</h1>
+<form action="#" th:action="@{/item/create-item}" th:object="${item}" method="POST" enctype="multipart/form-data">
+  <label for="brand">Brand:</label>
+  <input type="text" id="brand" th:field="*{brand}" required><br>
+  <br>
+  <label for="category">Category:</label>
+  <input type="text" id="category" th:field="*{category}" required><br>
+  <br>
+  <label for="itemType">Item Type:</label>
+  <input type="text" id="itemType" th:field="*{itemType}" required><br>
+  <br>
+  <label for="generalDescription">General Description:</label>
+  <textarea id="generalDescription" th:field="*{generalDescription}" rows="4" required></textarea><br>
+  <br>
+  <label for="detailedDescription">Detailed Description:</label>
+  <textarea id="detailedDescription" th:field="*{detailedDescription}" rows="8" required></textarea><br>
+  <br>
+  <label for="itemName">Item Name:</label>
+  <input type="text" id="itemName" th:field="*{name}" required><br>
+  <br>
+  <label for="photoFile">Photo (File):</label>
+  <input type="file" id="photoFile" name="photoFile" required><br>
+  <br>
+  <label for="photoLink">Photo (Link):</label>
+  <input type="url" id="photoLink" th:field="*{photo}"><br>
+  <br>
+  <label for="videoLink">Video (Link):</label>
+  <input type="url" id="videoLink" th:field="*{video}"><br>
+  <br>
+  <label for="price">Price:</label>
+  <input min="1" step="any" type="number" id="price" th:field="*{price}" required><br>
+  <br>
+  <label for="quantity">Quantity:</label>
+  <input min="1" type="number" id="quantity" th:field="*{quantity}" required><br>
+  <br>
+  <input type="submit" value="Create Item">
+</form>
+</body>
+</html>
