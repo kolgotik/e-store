@@ -89,6 +89,12 @@ a, a:hover, a:visited, a:active, a:link
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    /* Additional styling for the disabled state */
+}
+
 p a:active
 {
 	position: relative;

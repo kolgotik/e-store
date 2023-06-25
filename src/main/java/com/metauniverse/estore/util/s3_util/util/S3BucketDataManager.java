@@ -1,4 +1,4 @@
-package com.metauniverse.estore.aws.s3.util;
+package com.metauniverse.estore.util.s3_util.util;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.metauniverse.estore.item.Item;

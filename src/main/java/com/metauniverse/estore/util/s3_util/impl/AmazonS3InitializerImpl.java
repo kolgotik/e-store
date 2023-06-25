@@ -1,4 +1,4 @@
-package com.metauniverse.estore.aws.s3.impl;
+package com.metauniverse.estore.util.s3_util.impl;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -6,7 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.metauniverse.estore.aws.s3.util.AmazonS3Initializer;
+import com.metauniverse.estore.util.s3_util.util.AmazonS3Initializer;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
-package com.metauniverse.estore.aws.s3.impl;
+package com.metauniverse.estore.util.s3_util.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.metauniverse.estore.aws.s3.util.S3BucketDataManager;
+import com.metauniverse.estore.util.s3_util.util.S3BucketDataManager;
 import com.metauniverse.estore.item.Item;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
