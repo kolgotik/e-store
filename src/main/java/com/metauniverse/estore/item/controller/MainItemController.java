@@ -1,17 +1,17 @@
 package com.metauniverse.estore.item.controller;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.metauniverse.estore.aws.s3.util.AmazonS3Initializer;
-import com.metauniverse.estore.aws.s3.util.S3BucketDataManager;
-import com.metauniverse.estore.item.*;
-import com.metauniverse.estore.item.enums.ItemType;
+import com.metauniverse.estore.util.s3_util.util.AmazonS3Initializer;
+import com.metauniverse.estore.util.s3_util.util.S3BucketDataManager;
+import com.metauniverse.estore.item.Item;
+import com.metauniverse.estore.item.ItemRepository;
+import com.metauniverse.estore.item.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 @Controller

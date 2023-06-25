@@ -300,7 +300,7 @@
                 <div class="col-lg-4">
 
                     <!-- Delivery -->
-                    <div class="delivery">
+                    <!--<div class="delivery">
                         <div class="section_title">Shipping method</div>
                         <div class="section_subtitle">Select the one you want</div>
                         <div class="delivery_options">
@@ -322,7 +322,7 @@
                         </div>
                     </div>
 
-                    <!-- Coupon Code -->
+                    &lt;!&ndash; Coupon Code &ndash;&gt;
                     <div class="coupon">
                         <div class="section_title">Coupon code</div>
                         <div class="section_subtitle">Enter your coupon code</div>
@@ -332,7 +332,7 @@
                                 <button class="button coupon_button"><span>Apply</span></button>
                             </form>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
 
                 <div class="col-lg-6 offset-lg-2">
@@ -341,10 +341,10 @@
                         <div class="section_subtitle">Final info</div>
                         <div class="cart_total_container">
                             <ul>
-                                <li class="d-flex flex-row align-items-center justify-content-start">
+                                <!--<li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="cart_total_title">Subtotal</div>
                                     <div class="cart_total_value ml-auto">$790.90</div>
-                                </li>
+                                </li>-->
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="cart_total_title">Shipping</div>
                                     <div class="cart_total_value ml-auto">Free</div>
@@ -357,7 +357,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="button checkout_button"><a href="#">Proceed to checkout</a></div>
+                        <div class="button checkout_button"><a th:href="${session.cart.items.isEmpty() ? null : '/order/checkout-page'}"
+                                                               th:class="${session.cart.items.isEmpty() ? 'disabled' : ''}">Proceed to checkout</a></div>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 package com.metauniverse.estore.item.controller;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.metauniverse.estore.aws.s3.util.AmazonS3Initializer;
-import com.metauniverse.estore.aws.s3.util.S3BucketDataManager;
+import com.metauniverse.estore.util.s3_util.util.AmazonS3Initializer;
+import com.metauniverse.estore.util.s3_util.util.S3BucketDataManager;
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemService;
 import com.metauniverse.estore.item.enums.ItemType;

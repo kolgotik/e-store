@@ -23,9 +23,15 @@ public class Order {
     private User user;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinTable(joinColumns = @JoinColumn(name = "order_id"))
+    @JoinTable(
+            name = "order_item",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     private List<Item> items;
     private String userName;
+    private String firstName;
+    private String lastName;
     private String toCountry;
     private String toCity;
     private String toStreet;
