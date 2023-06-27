@@ -250,11 +250,15 @@
                                     <label for="checkout_country">Country*</label>
                                     <select th:field="*{toCountry}" name="checkout_country" id="checkout_country"
                                             class="dropdown_item_select checkout_input" required="required">
-                                        <option value="1">Lithuania</option>
-                                        <option value="2">Sweden</option>
-                                        <option value="3">UK</option>
+                                        <option th:each="country : ${countries}" th:value="${country}" th:text="${country}"></option>
                                     </select>
                                 </div>
+                                <div>
+                                    <!-- City / Town -->
+                                    <label for="checkout_city">City/Town*</label>
+                                    <input th:field="*{toCity}" type="text" id="checkout_city" class="checkout_input" required="required" pattern="[a-zA-Z ]*" title="Please enter a city name in Latin characters">
+                                </div>
+
                                 <div>
                                     <!-- Address -->
                                     <label for="checkout_address">Address*</label>
@@ -267,17 +271,7 @@
                                     <label for="checkout_zipcode">Zipcode*</label>
                                     <input th:field="*{postalCode}" type="text" id="checkout_zipcode" class="checkout_input" required="required">
                                 </div>
-                                <div>
-                                    <!-- City / Town -->
-                                    <label for="checkout_city">City/Town*</label>
-                                    <select th:field="*{toCity}" name="checkout_city" id="checkout_city"
-                                            class="dropdown_item_select checkout_input" required="required">
-                                        <option value="1">City</option>
-                                        <option value="2">City</option>
-                                        <option value="3">City</option>
-                                    </select>
-                                </div>
-                                <div class="checkout_extra">
+                                <!--<div class="checkout_extra">
                                     <div>
                                         <input type="checkbox" id="checkbox_terms" name="regular_checkbox"
                                                class="regular_checkbox" checked="checked">
@@ -296,7 +290,7 @@
                                         <label for="checkbox_newsletter"><img src="/images/check.png" alt=""></label>
                                         <span class="checkbox_title">Subscribe to our newsletter</span>
                                     </div>
-                                </div>
+                                </div>-->
                                 <button class="order_button" type="submit">Place Order</button>
                             </form>
                         </div>
@@ -344,7 +338,7 @@
                                     <input type="radio" name="radio">
                                     <span class="checkmark"></span>
                                 </label>
-                                <label class="payment_option clearfix">Cach on delivery
+                                <label class="payment_option clearfix">Catch on delivery
                                     <input type="radio" name="radio">
                                     <span class="checkmark"></span>
                                 </label>
