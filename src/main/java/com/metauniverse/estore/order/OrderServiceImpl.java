@@ -13,9 +13,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -47,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
     public void placeOrderForUser(String username, Order order) {
         Optional<User> userFromDb = userRepository.findByEmail(username);
         Cart cart = (Cart) session.getAttribute("cart");
+        Map<Long, Integer> itemsQty = new HashMap<>(cart.getQtyOfEachItem());
         List<Item> cartItems = cart.getItems();
         List<Long> itemsIds = cartItems.stream()
                 .map(Item::getId)
@@ -54,17 +54,29 @@ public class OrderServiceImpl implements OrderService {
         List<Item> itemsFromDb = (List<Item>) itemRepository.findAllById(itemsIds);
         log.info("ITEMS FROM DB: " + itemsFromDb);
         order.setItems(itemsFromDb);
+        order.setItemQuantity(itemsQty);
+        order.setTotalQuantity(cart.getItemQuantity());
+        order.setTotalPrice(cart.getTotalPrice());
         if (userFromDb.isPresent()) {
             User user = userFromDb.get();
             List<Order> orders = user.getOrders();
-            log.info("ORDERS BEFORE ADDING NEW ORDER: " + orders);
             orders.add(order);
             log.info("ORDER: " + order);
-            log.info("ORDERS AFTER ADDING NEW ORDER: " + orders);
             user.setOrders(orders);
             order.setUser(user);
             userRepository.save(user);
             orderRepository.save(order);
         }
+    }
+
+    @Override
+    public void cleanCartAfterOrderPlacement() {
+        Cart cart = (Cart) session.getAttribute("cart");
+        Map<Long, Integer> itemsQty = (Map<Long, Integer>) session.getAttribute("itemsQty");
+        itemsQty.clear();
+        cart.setTotalPrice(BigDecimal.valueOf(0));
+        cart.setItemQuantity(0);
+        cart.setQtyOfEachItem(new HashMap<>());
+        cart.setItems(new ArrayList<>());
     }
 }
