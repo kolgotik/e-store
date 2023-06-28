@@ -60,6 +60,7 @@ public class OrderController {
     public String processCheckout(@ModelAttribute("order") Order order, @AuthenticationPrincipal OAuth2User oAuth2User, @AuthenticationPrincipal User user) {
         String username = OrderServiceImpl.getUsernameOfAuthUser(user, oAuth2User);
         orderService.placeOrderForUser(username, order);
+        orderService.cleanCartAfterOrderPlacement();
         return "order-success";
     }
 }

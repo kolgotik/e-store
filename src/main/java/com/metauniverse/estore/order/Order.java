@@ -6,8 +6,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "orders")
@@ -29,6 +31,10 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
     private List<Item> items;
+    private Integer totalQuantity;
+    private BigDecimal totalPrice;
+    @ElementCollection
+    private Map<Long, Integer> itemQuantity;
     private String userName;
     private String firstName;
     private String lastName;
@@ -44,7 +50,12 @@ public class Order {
                 "id=" + id +
                 ", user=" + user +
                 ", items=" + items +
+                ", totalQuantity=" + totalQuantity +
+                ", totalPrice=" + totalPrice +
+                ", itemQuantity=" + itemQuantity +
                 ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", toCountry='" + toCountry + '\'' +
                 ", toCity='" + toCity + '\'' +
                 ", toStreet='" + toStreet + '\'' +
