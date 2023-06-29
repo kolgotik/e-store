@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,20 @@ public class UserService implements UserDetailsService {
     private final ConfirmationTokenService confirmationTokenService;
     private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+    public static String getUsernameOfAuthUser(User user, OAuth2User oAuth2User) {
+        String username = "";
+        try {
+            if (oAuth2User != null) {
+                username = oAuth2User.getAttribute("email");
+            } else if (user != null) {
+                username = user.getEmail();
+            }
+
+        } catch (UserNotFoundException e) {
+            log.error(e.getMessage());
+        }
+        return username;
+    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);

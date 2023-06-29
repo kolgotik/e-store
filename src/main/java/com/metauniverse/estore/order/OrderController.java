@@ -1,7 +1,9 @@
 package com.metauniverse.estore.order;
 
+import com.metauniverse.estore.exception.order.NotEnoughBalanceException;
 import com.metauniverse.estore.user.User;
 import com.metauniverse.estore.user.UserRepository;
+import com.metauniverse.estore.user.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -58,8 +62,17 @@ public class OrderController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/process-checkout")
     public String processCheckout(@ModelAttribute("order") Order order, @AuthenticationPrincipal OAuth2User oAuth2User, @AuthenticationPrincipal User user) {
-        String username = OrderServiceImpl.getUsernameOfAuthUser(user, oAuth2User);
-        orderService.placeOrderForUser(username, order);
+        String username = UserService.getUsernameOfAuthUser(user, oAuth2User);
+        try {
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            String formattedDateTime = dateTime.format(formatter);
+            order.setDateOfOrderPlacement(formattedDateTime);
+            orderService.placeOrderForUser(username, order);
+        } catch (NotEnoughBalanceException e) {
+            log.error(e.getMessage());
+            return "order-no-balance";
+        }
         orderService.cleanCartAfterOrderPlacement();
         return "order-success";
     }

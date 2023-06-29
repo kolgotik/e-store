@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Controller
@@ -29,6 +30,7 @@ public class OAuth2LoginController {
                     newUser.setFirstName(oAuth2User.getAttribute("given_name"));
                     newUser.setLastName(oAuth2User.getAttribute("family_name"));
                     newUser.setEmail(oAuth2User.getAttribute("email"));
+                    newUser.setBalance(BigDecimal.valueOf(0));
                     userRepository.save(newUser);
                     return newUser;
                 });

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Cart</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>Profile</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sublime project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="/styles/cart_responsive.css">
 </head>
 <body>
-
 <div class="super_container">
 
     <!-- Header -->
@@ -50,11 +49,8 @@
                                     <li><a href="#">Offers</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                     <li>
-                                        <a th:href="@{/login}" sec:authorize="!isAuthenticated()">
-                                            <span>Login</span>
-                                        </a>
-                                        <a th:href="@{/profile}" sec:authorize="isAuthenticated()">
-                                            <span>Profile</span>
+                                        <a th:href="@{/logout}" sec:authorize="isAuthenticated()">
+                                            <span>Logout</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -197,176 +193,38 @@
         </div>
     </div>
 
-    <!-- Home -->
-
-    <!--<div class="home">
-        <div class="home_container">
-            <div class="home_background" style="background-image:url(/images/cart.jpg)"></div>
-            <div class="home_content_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="home_content">
-                                <div class="breadcrumbs">
-                                    <ul>
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="categories.html">Categories</a></li>
-                                        <li>Shopping Cart</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
     <br>
     <br>
     <br>
     <!-- Cart Info -->
 
-    <div class="cart_info">
+    <div class="cart_info" th:object="${user}">
         <div class="container">
             <div class="row">
                 <div class="col">
+                    <p class="section_title" style="font-size: 24px; " th:text="'Balance: ' + ${user.balance} + ' $'"></p>
+                    <br>
+                    <br>
                     <!-- Column Titles -->
                     <div class="cart_info_columns clearfix">
-                        <div class="cart_info_col cart_info_col_product">Product</div>
-                        <div class="cart_info_col cart_info_col_price">Price</div>
-                        <div class="cart_info_col cart_info_col_quantity">Quantity</div>
-                        <div class="cart_info_col cart_info_col_total">Total</div>
+                        <div style="font-size: 18px;" class="cart_info_col cart_info_col_product">Orders</div>
                     </div>
                 </div>
             </div>
-            <div th:object="${session.cart.items}" class="row cart_items_row">
+            <div th:object="${user.orders}" class="row cart_items_row">
                 <div class="col">
-                    <div th:unless="${#lists.size(session.cart.items) > 0}" style="text-align: center;">
+                    <div th:unless="${#lists.size(user.orders) > 0}" style="text-align: center;">
                         <br>
                         <br>
-                        <p style="font-size: 20px; font-weight: bold;">Your cart is empty.</p>
+                        <p style="font-size: 20px; font-weight: bold;">Order list is empty.</p>
                         <br>
                         <br>
                     </div>
-                    <div th:each="item : ${session.cart.items}" class="cart_item">
-                        <!-- Cart Item -->
-                        <div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
-                            <!-- Name -->
-                            <div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
-                                <div class="cart_item_image">
-                                    <div><img th:src="${session.itemsImgLinks.get(item.id)}" alt=""></div>
-                                </div>
-                                <div class="cart_item_name_container">
-                                    <div class="cart_item_name"><a th:text="${item.name}"
-                                                                   th:href="@{/item/get-item(itemId=${item.id})}"></a>
-                                    </div>
-                                    <div class="cart_item_edit"><a style="font-size: 18px; color: #e0432e;"
-                                                                   th:href="@{/cart/remove-item(itemId=${item.id})}"
-                                                                   onclick="return confirm('Remove item?')">Remove</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Price -->
-                            <div th:text="${item.price} + ' $'" class="cart_item_price">$790.90</div>
-                            <!-- Quantity -->
-                            <div th:each="itemQty : ${session.itemsQty}" th:if="${itemQty.key == item.id}"
-                                 class="cart_item_quantity">
-                                <div class="product_quantity_container">
-                                    <div class="product_quantity clearfix">
-                                        <span>Qty</span>
-                                        <input th:id="'quantity_input' + ${itemQty.key}" type="number" pattern="[1-9]*"
-                                               th:value="${itemQty.value}" min="1" th:max="${item.quantity}"
-                                               name="quantity"
-                                               th:onchange="'onQuantityInputChange(\'' + ${itemQty.key} + '\')'">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Total -->
-                            <div th:each="itemPrice : ${session.totalPriceOfEachItem}"
-                                 th:if="${itemPrice.key == item.id}">
-                                <div th:text="${itemPrice.value} + ' $'" class="cart_item_total">0 $</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row row_cart_buttons">
-                <div class="col">
-                    <div class="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
-                        <div style="text-align: center;" class="button continue_shopping_button"><a href="/">Continue shopping</a></div>
-                        <!--<div class="cart_buttons_right ml-lg-auto">
-                            <div class="button clear_cart_button"><a href="#">Clear cart</a></div>
-                            <div class="button update_cart_button"><a onClick="window.location.reload();" href="#">Update cart</a></div>
-                        </div>-->
-                    </div>
-                </div>
-            </div>
-            <div class="row row_extra">
-                <div class="col-lg-4">
-
-                    <!-- Delivery -->
-                    <!--<div class="delivery">
-                        <div class="section_title">Shipping method</div>
-                        <div class="section_subtitle">Select the one you want</div>
-                        <div class="delivery_options">
-                            <label class="delivery_option clearfix">Next day delivery
-                                <input type="radio" name="radio">
-                                <span class="checkmark"></span>
-                                <span class="delivery_price">$4.99</span>
-                            </label>
-                            <label class="delivery_option clearfix">Standard delivery
-                                <input type="radio" name="radio">
-                                <span class="checkmark"></span>
-                                <span class="delivery_price">$1.99</span>
-                            </label>
-                            <label class="delivery_option clearfix">Personal pickup
-                                <input type="radio" checked="checked" name="radio">
-                                <span class="checkmark"></span>
-                                <span class="delivery_price">Free</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    &lt;!&ndash; Coupon Code &ndash;&gt;
-                    <div class="coupon">
-                        <div class="section_title">Coupon code</div>
-                        <div class="section_subtitle">Enter your coupon code</div>
-                        <div class="coupon_form_container">
-                            <form action="#" id="coupon_form" class="coupon_form">
-                                <input type="text" class="coupon_input" required="required">
-                                <button class="button coupon_button"><span>Apply</span></button>
-                            </form>
-                        </div>
-                    </div>-->
-                </div>
-
-                <div class="col-lg-6 offset-lg-2">
-                    <div class="cart_total">
-                        <div class="section_title">Cart total</div>
-                        <div class="section_subtitle">Final info</div>
-                        <div class="cart_total_container">
-                            <ul>
-                                <!--<li class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="cart_total_title">Subtotal</div>
-                                    <div class="cart_total_value ml-auto">$790.90</div>
-                                </li>-->
-                                <li class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="cart_total_title">Shipping</div>
-                                    <div class="cart_total_value ml-auto">Free</div>
-                                </li>
-                                <li class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="cart_total_title">Total</div>
-                                    <div th:text="${session.cart.totalPrice} + ' $'" class="cart_total_value ml-auto">0
-                                        $
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="button checkout_button"><a th:href="${session.cart.items.isEmpty() ? null : '/order/checkout-page'}"
-                                                               th:class="${session.cart.items.isEmpty() ? 'disabled' : ''}">Proceed to checkout</a></div>
+                    <div th:each="order : ${user.orders}" class="cart_item">
+                        <div class="cart_item_name">
+                            <a th:each="item : ${order.items}"
+                               th:text="'Order from: ' + ${order.dateOfOrderPlacement} + ' ( ' + ${order.uniqueId} + ' )'"
+                               th:href="@{/order/view-order(orderId=${order.id})}"></a>
                     </div>
                 </div>
             </div>
@@ -404,125 +262,6 @@
         </div>
     </footer>
 </div>
-<script>
-  function sendQuantity(itemId, quantity) {
-    // Create an object with the data to be sent
-    const data = {
-      itemId: itemId,
-      quantity: quantity
-    };
-
-    // Make a POST request to the specified URL
-    fetch('/cart/change-quantity', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => {
-      if (response.ok) {
-        // Handle successful response
-        console.log('Data sent successfully');
-        window.location.reload();
-      } else {
-        // Handle error response
-        console.error('Error sending data');
-      }
-    })
-    .catch(error => {
-      // Handle fetch error
-      console.error('Error:', error);
-    });
-  }
-
-  function onQuantityInputChange(itemId) {
-    const quantityInput = document.getElementById('quantity_input'+itemId);
-
-    // Get the value of the quantity input
-    const quantity = parseInt(quantityInput.value);
-
-    // Call the sendQuantity() function with the item ID and quantity
-    sendQuantity(itemId, quantity);
-  }
-
-</script>
-<script>
-  // Get the input element
-  const quantityInput = document.getElementById('quantity_input');
-
-  // Add an event listener for input change
-  quantityInput.addEventListener('input', function() {
-    // Get the input value
-    const quantity = parseInt(quantityInput.value);
-
-    // Check if the value is greater than 0
-    if (quantity <= 0) {
-      // Display an error message or perform some action
-      alert('Please enter a value greater than 0.');
-
-      // Reset the input value to the minimum allowed value
-      quantityInput.value = 1;
-    }
-  });
-
-
-
-
-
-</script>
-<script>// Get the input element
-// Get the input element
-const quantityInput = document.getElementById('quantity_input');
-
-// Get the increment and decrement buttons
-const incButton = document.getElementById('quantity_inc_button');
-const decButton = document.getElementById('quantity_dec_button');
-
-// Add an event listener for increment button click
-incButton.addEventListener('click', function() {
-  // Get the current value
-  let quantity = parseInt(quantityInput.value);
-
-  // Increment the value
-  quantity++;
-
-  // Update the input value
-  quantityInput.value = quantity;
-
-  // Enable the decrease button
-  decButton.disabled = false;
-});
-
-// Add an event listener for decrement button click
-decButton.addEventListener('click', function() {
-  // Get the current value
-  let quantity = parseInt(quantityInput.value);
-
-  // Check if the value is already 1
-  if (quantity === 1) {
-    return; // Do nothing if it's 1
-  }
-
-  // Decrement the value
-  quantity--;
-
-  // Update the input value
-  quantityInput.value = quantity;
-
-  // Disable the decrease button if the value is 1
-  if (quantity === 1) {
-    decButton.disabled = true;
-  }
-});
-
-});
-
-
-
-
-
-</script>
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/styles/bootstrap4/popper.js"></script>
 <script src="/styles/bootstrap4/bootstrap.min.js"></script>
@@ -535,4 +274,5 @@ decButton.addEventListener('click', function() {
 <script src="/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="/js/cart.js"></script>
 </body>
+
 </html>
