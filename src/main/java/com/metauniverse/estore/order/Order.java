@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -43,7 +44,8 @@ public class Order {
     private String toStreet;
     private String postalCode;
     private LocalDateTime shipDate;
-
+    private UUID uniqueId;
+    private String  dateOfOrderPlacement;
     @Override
     public String toString() {
         return "Order{" +

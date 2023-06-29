@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
@@ -59,6 +60,7 @@ public class RegistrationService {
             user.setEmail(request.getEmail());
             user.setPassword(request.getPassword());
             user.setRoles(Collections.singleton(Role.ROLE_OAUTH2USER));
+            user.setBalance(BigDecimal.valueOf(0));
 
             String token = userService.signUpUser(user);
             String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
