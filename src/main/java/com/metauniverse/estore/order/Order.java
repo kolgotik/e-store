@@ -45,7 +45,7 @@ public class Order {
     private String postalCode;
     private LocalDateTime shipDate;
     private UUID uniqueId;
-    private String  dateOfOrderPlacement;
+    private String dateOfOrderPlacement;
     @Override
     public String toString() {
         return "Order{" +
