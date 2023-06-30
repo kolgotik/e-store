@@ -10,6 +10,8 @@
     <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/styles/cart.css">
     <link rel="stylesheet" type="text/css" href="/styles/cart_responsive.css">
+    <link rel="stylesheet" type="text/css" href="/styles/checkout.css">
+    <link rel="stylesheet" type="text/css" href="/styles/checkout_responsive.css">
 </head>
 <body>
 <div class="super_container">
@@ -203,6 +205,12 @@
             <div class="row">
                 <div class="col">
                     <p class="section_title" style="font-size: 24px; " th:text="'Balance: ' + ${user.balance} + ' $'"></p>
+                    <br>
+                    <br>
+                    <form th:action="@{/profile/add-balance}" method="post">
+                        <input type="number" value="10" min="10" max="5000" name="balance">
+                        <button type="submit" onclick="return confirm('Confirm action')">Top up the balance</button>
+                    </form>
                     <br>
                     <br>
                     <!-- Column Titles -->
