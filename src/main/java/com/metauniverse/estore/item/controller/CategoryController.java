@@ -25,15 +25,12 @@ import java.util.Map;
 public class CategoryController {
 
     private final ItemService itemService;
-    private final AmazonS3Initializer s3Initializer;
-    private final S3BucketDataManager bucketDataManager;
     private Map<Long, String> itemsImgLinks;
-    private HttpSession session;
 
     @GetMapping("/all")
     public String getAllCategories(Model model) {
         Iterable<Item> items = itemService.getEveryItem();
-        setImageLinksIntoSession(items);
+        itemService.setImageLinksIntoSession(items);
         model.addAttribute("itemsImgLinks", itemsImgLinks);
         model.addAttribute("items", items);
         return "categories-all";
@@ -42,7 +39,7 @@ public class CategoryController {
     @GetMapping("/smartphones")
     public String getSmartphones(Model model) {
         Iterable<Item> smartphones = itemService.getItemsByType(ItemType.ANDROID_SMARTPHONE.getValue());
-        setImageLinksIntoSession(smartphones);
+        itemService.setImageLinksIntoSession(smartphones);
         model.addAttribute("itemsImgLinks", itemsImgLinks);
         model.addAttribute("smartphones", smartphones);
         return "categories-smartphones";
@@ -51,7 +48,7 @@ public class CategoryController {
     @GetMapping("/laptops")
     public String getLaptops(Model model) {
         Iterable<Item> laptops = itemService.getItemsByType(ItemType.LAPTOP.getValue());
-        setImageLinksIntoSession(laptops);
+        itemService.setImageLinksIntoSession(laptops);
         model.addAttribute("itemsImgLinks", itemsImgLinks);
         model.addAttribute("laptops", laptops);
         return "categories-laptops";
@@ -60,7 +57,7 @@ public class CategoryController {
     @GetMapping("/desktop-pcs")
     public String getDesktopPCs(Model model) {
         Iterable<Item> pcs = itemService.getItemsByType(ItemType.DESKTOP_PC.getValue());
-        setImageLinksIntoSession(pcs);
+        itemService.setImageLinksIntoSession(pcs);
         model.addAttribute("itemsImgLinks", itemsImgLinks);
         model.addAttribute("pcs", pcs);
         return "categories-desktop-pcs";
@@ -69,7 +66,7 @@ public class CategoryController {
     @GetMapping("/pc-components")
     public String getPCComponents(Model model) {
         Iterable<Item> pcComponents = itemService.getItemsByType(ItemType.PC_COMPONENT.getValue());
-        setImageLinksIntoSession(pcComponents);
+        itemService.setImageLinksIntoSession(pcComponents);
         model.addAttribute("itemsImgLinks", itemsImgLinks);
         model.addAttribute("pcComponents", pcComponents);
         return "categories-pc-components";
@@ -78,13 +75,13 @@ public class CategoryController {
     @GetMapping("/consoles")
     public String getConsoles(Model model) {
         Iterable<Item> consoles = itemService.getItemsByType(ItemType.CONSOLE.getValue());
-        setImageLinksIntoSession(consoles);
+        itemService.setImageLinksIntoSession(consoles);
         model.addAttribute("itemsImgLinks", itemsImgLinks);
         model.addAttribute("consoles", consoles);
         return "categories-consoles";
     }
 
-    private Map<Long, String> getItemsImgLinks(Iterable<Item> items, AmazonS3 s3client) {
+    /*public Map<Long, String> getItemsImgLinks(Iterable<Item> items, AmazonS3 s3client) {
         List<Item> itemList = new ArrayList<>();
         for (Item item : items) {
             itemList.add(item);
@@ -92,7 +89,7 @@ public class CategoryController {
         return bucketDataManager.getObjectsImageLinks(itemList, s3client, session);
     }
 
-    private void setImageLinksIntoSession(Iterable<Item> items) {
+    public void setImageLinksIntoSession(Iterable<Item> items) {
         Map<Long, String> itemsImgLinks = (Map<Long, String>) session.getAttribute("itemsImgLinks");
         log.info("itemsImgLinks " + itemsImgLinks.toString());
         for (Item item : items) {
@@ -102,5 +99,5 @@ public class CategoryController {
                 session.setAttribute("itemsImgLinks", itemsImgLinks);
             }
         }
-    }
+    }*/
 }
