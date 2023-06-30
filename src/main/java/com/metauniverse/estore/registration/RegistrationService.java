@@ -50,7 +50,7 @@ public class RegistrationService {
                 request.getEmail(),
                 request.getPassword(),
                 Collections.singleton(Role.ROLE_USER)
-                ));
+        ));
 
         log.info("USER ROLE: " + user.getRoles());
         if (user.getRoles().contains(Role.ROLE_OAUTH2USER)) {
@@ -60,13 +60,13 @@ public class RegistrationService {
             user.setEmail(request.getEmail());
             user.setPassword(request.getPassword());
             user.setRoles(Collections.singleton(Role.ROLE_OAUTH2USER));
-            user.setBalance(BigDecimal.valueOf(0));
 
             String token = userService.signUpUser(user);
             String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
             emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
             return "Confirm you email.";
         }
+        log.info("USER: " + user.toString());
         String token = userService.signUpUser(
                 new User(request.getFirstName(),
                         request.getLastName(),
@@ -100,6 +100,7 @@ public class RegistrationService {
 
         return "confirmed";
     }
+
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
