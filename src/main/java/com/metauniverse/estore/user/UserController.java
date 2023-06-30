@@ -1,6 +1,7 @@
 package com.metauniverse.estore.user;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequestMapping("/profile")
 @AllArgsConstructor
 @PreAuthorize("isAuthenticated()")
+@Slf4j
 public class UserController {
 
     private final UserRepository userRepository;
@@ -39,6 +41,7 @@ public class UserController {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User authUser = optionalUser.get();
+            log.info("USER: " + authUser);
             BigDecimal currentBalance = authUser.getBalance();
             currentBalance = currentBalance.add(balance);
             authUser.setBalance(currentBalance);

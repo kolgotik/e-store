@@ -40,7 +40,7 @@ public class User implements UserDetails {
     private Set<Role> roles;
     private Boolean locked = false;
     private Boolean enabled = false;
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.valueOf(0);
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -104,5 +104,24 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirmation='" + passwordConfirmation + '\'' +
+                ", roles=" + roles +
+                ", locked=" + locked +
+                ", enabled=" + enabled +
+                ", balance=" + balance +
+                ", cart=" + cart +
+                ", orders=" + orders +
+                '}';
     }
 }
