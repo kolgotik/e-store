@@ -3,6 +3,7 @@ package com.metauniverse.estore.user;
 
 import com.metauniverse.estore.cart.Cart;
 import com.metauniverse.estore.order.Order;
+import com.metauniverse.estore.review.Review;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
+@ToString
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +47,11 @@ public class User implements UserDetails {
     @JoinColumn(name = "cart_id")
     private Cart cart;
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<Order> orders;
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
+    @ToString.Exclude
+    private List<Review> reviews;
     public User(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -104,24 +110,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", passwordConfirmation='" + passwordConfirmation + '\'' +
-                ", roles=" + roles +
-                ", locked=" + locked +
-                ", enabled=" + enabled +
-                ", balance=" + balance +
-                ", cart=" + cart +
-                ", orders=" + orders +
-                '}';
     }
 }

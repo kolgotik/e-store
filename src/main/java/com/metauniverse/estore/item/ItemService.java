@@ -14,5 +14,6 @@ public interface ItemService {
     Optional<Item> getItemById(Long id);
     void defineItemAvailability(Long id, Model model);
     Map<Long, String> getItemsImgLinks(Iterable<Item> items, AmazonS3 s3client);
+    String getItemImgLink(Long itemId);
     void setImageLinksIntoSession(Iterable<Item> items);
 }

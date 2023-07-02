@@ -20,21 +20,25 @@ import java.util.Optional;
 @Transactional
 @AllArgsConstructor
 @Slf4j
-public class ItemServiceImpl implements ItemService{
+public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
     private HttpSession session;
     private S3BucketDataManager bucketDataManager;
     private AmazonS3Initializer s3Initializer;
+
     public Iterable<Item> getItemsByType(String itemType) {
         return itemRepository.getItemsByType(itemType);
     }
+
     public Iterable<Item> getEveryItem() {
         return itemRepository.findAll();
     }
+
     public Integer getQuantityOfItem(Long id) {
         return itemRepository.getQuantityOfItem(id);
     }
+
     public Boolean isItemAvailable(Long id) {
         Integer quantity = itemRepository.getQuantityOfItem(id);
         if (quantity == null || quantity == 0) {
@@ -42,9 +46,11 @@ public class ItemServiceImpl implements ItemService{
         }
         return true;
     }
+
     public Optional<Item> getItemById(Long id) {
         return itemRepository.findById(id);
     }
+
     public void defineItemAvailability(Long id, Model model) {
         Boolean isAvailable = isItemAvailable(id);
         Integer itemQuantity = getQuantityOfItem(id);
@@ -59,7 +65,9 @@ public class ItemServiceImpl implements ItemService{
             model.addAttribute("availability", ItemAvailability.ITEM_UNAVAILABLE.getValue());
         }
     }
+
     public Map<Long, String> getItemsImgLinks(Iterable<Item> items, AmazonS3 s3client) {
+        log.info("Getting items image links");
         List<Item> itemList = new ArrayList<>();
         for (Item item : items) {
             itemList.add(item);
@@ -67,10 +75,17 @@ public class ItemServiceImpl implements ItemService{
         return bucketDataManager.getObjectsImageLinks(itemList, s3client, session);
     }
 
+    @Override
+    public String getItemImgLink(Long itemId) {
+        AmazonS3 s3client = s3Initializer.init();
+        return bucketDataManager.getObjectImageLink(itemId, s3client);
+    }
+
     public void setImageLinksIntoSession(Iterable<Item> items) {
         Map<Long, String> itemsImgLinks = (Map<Long, String>) session.getAttribute("itemsImgLinks");
         log.info("itemsImgLinks " + itemsImgLinks.toString());
         for (Item item : items) {
+            log.info("Setting images links into session");
             if (!itemsImgLinks.containsKey(item.getId())) {
                 AmazonS3 s3client = s3Initializer.init();
                 itemsImgLinks = getItemsImgLinks(items, s3client);

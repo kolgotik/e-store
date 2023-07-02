@@ -5,6 +5,7 @@ import com.metauniverse.estore.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Table(name = "orders")
 @Getter
 @Setter
+@ToString
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,7 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
+    @ToString.Exclude
     private List<Item> items;
     private Integer totalQuantity;
     private BigDecimal totalPrice;
@@ -46,23 +49,5 @@ public class Order {
     private LocalDateTime shipDate;
     private UUID uniqueId;
     private String dateOfOrderPlacement;
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", user=" + user +
-                ", items=" + items +
-                ", totalQuantity=" + totalQuantity +
-                ", totalPrice=" + totalPrice +
-                ", itemQuantity=" + itemQuantity +
-                ", userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", toCountry='" + toCountry + '\'' +
-                ", toCity='" + toCity + '\'' +
-                ", toStreet='" + toStreet + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", shipDate=" + shipDate +
-                '}';
-    }
+
 }

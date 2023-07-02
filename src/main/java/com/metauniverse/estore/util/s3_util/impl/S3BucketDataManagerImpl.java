@@ -21,6 +21,7 @@ public class S3BucketDataManagerImpl implements S3BucketDataManager {
     @Override
     public String getObjectImageLink(Long itemId, AmazonS3 s3client) {
         try {
+            log.info("Getting image links directly from s3");
             return s3client.getObjectAsString("test-bucket-for-links", "image-links/" + itemId + ".txt");
         } catch (AmazonS3Exception e) {
             if (e.getStatusCode() == 404) {
