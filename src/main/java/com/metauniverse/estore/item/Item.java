@@ -2,6 +2,7 @@
 package com.metauniverse.estore.item;
 
 import com.metauniverse.estore.order.Order;
+import com.metauniverse.estore.review.Review;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -35,6 +37,9 @@ public class Item {
     private String detailedDescription;
     private String photo;
     private String video;
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
+    private List<Review> reviews;
+    private Float totalScore;
 
     /*@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

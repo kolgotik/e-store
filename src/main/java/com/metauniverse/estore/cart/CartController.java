@@ -2,12 +2,17 @@ package com.metauniverse.estore.cart;
 
 import com.metauniverse.estore.item.Item;
 import com.metauniverse.estore.item.ItemService;
+import com.metauniverse.estore.user.User;
+import com.metauniverse.estore.user.UserRepository;
+import com.metauniverse.estore.user.UserService;
 import com.metauniverse.estore.util.cart_util.CartItemQuantityHandler;
 import com.metauniverse.estore.util.cart_util.CartPriceHandler;
 import com.metauniverse.estore.util.cart_util.SessionCartInitializer;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +34,18 @@ public class CartController {
     private final CartItemQuantityHandler itemQuantityHandler;
     private final CartPriceHandler cartPriceHandler;
 
+    private final UserRepository userRepository;
+
 
     @GetMapping
-    public String showCartPage(HttpSession session) {
+    public String showCartPage(HttpSession session, Model model, @AuthenticationPrincipal OAuth2User oAuth2User, @AuthenticationPrincipal User user) {
+        String email = UserService.getUsernameOfAuthUser(user, oAuth2User);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User authUser = optionalUser.get();
+            log.info("USER: " + authUser);
+            model.addAttribute("user", authUser);
+        }
         Cart cartFromSession = (Cart) session.getAttribute("cart");
         BigDecimal totalPrice = cartPriceHandler.getTotalPrice(session);
         cartFromSession.setTotalPrice(totalPrice);
