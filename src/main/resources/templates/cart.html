@@ -229,7 +229,10 @@
 
     <div class="cart_info">
         <div class="container">
-            <p class="section_title" style="font-size: 24px; " th:text="'Balance: ' + ${user.balance} + ' $'"></p>
+            <div th:if="${user != null}">
+                <p class="section_title" style="font-size: 24px;" th:text="'Balance: ' + ${user.balance} + ' $'"></p>
+            </div>
+
             <br>
             <br>
             <div class="row">
