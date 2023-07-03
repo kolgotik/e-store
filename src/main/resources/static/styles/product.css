@@ -1160,12 +1160,16 @@ section
 	display: inline-block;
 	font-size: 24px;
 	font-weight: 500;
-	color: #1b1b1b;
+	color: #767676;
 }
 .reviews_title
 {
-	display: inline-block;
-	margin-left: 41px;
+    display: inline-block;
+    	font-size: 24px;
+    	font-weight: 500;
+    	color: #767676;
+	/*display: inline-block;
+	margin-left: 41px;*/
 }
 .reviews_title a
 {

@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
-@ToString
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
