@@ -27,4 +27,5 @@ public class Review {
     @Transient
     private LocalDateTime localDateTime;
     private String createdAt;
+    private boolean userHasItem = false;
 }

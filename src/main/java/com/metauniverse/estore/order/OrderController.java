@@ -76,7 +76,7 @@ public class OrderController {
             orderService.placeOrderForUser(username, order);
         } catch (NotEnoughBalanceException e) {
             log.error(e.getMessage());
-            return "order-no-balance";
+            return "order-no-balance-err";
         }
         orderService.cleanCartAfterOrderPlacement();
         return "order-success";

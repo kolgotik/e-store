@@ -37,12 +37,4 @@ public class Cart {
     @Transient
     private List<ItemDTO> itemDTOList = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "user = " + user + ", " +
-                "totalPrice = " + totalPrice + ", " +
-                "itemQuantity = " + itemQuantity + ")";
-    }
 }
