@@ -43,6 +43,9 @@ public class UserController {
             User authUser = optionalUser.get();
             log.info("USER: " + authUser);
             BigDecimal currentBalance = authUser.getBalance();
+            if (currentBalance == null) {
+                currentBalance = BigDecimal.valueOf(0);
+            }
             currentBalance = currentBalance.add(balance);
             authUser.setBalance(currentBalance);
             userRepository.save(authUser);

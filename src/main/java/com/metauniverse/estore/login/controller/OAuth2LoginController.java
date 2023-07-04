@@ -34,6 +34,10 @@ public class OAuth2LoginController {
                     userRepository.save(newUser);
                     return newUser;
                 });
+        if (userFromDb.getBalance() == null) {
+            userFromDb.setBalance(BigDecimal.valueOf(0));
+            userRepository.save(userFromDb);
+        }
         return "redirect:/";
     }
 }

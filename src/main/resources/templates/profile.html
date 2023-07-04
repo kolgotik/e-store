@@ -113,8 +113,8 @@
                 <div class="row">
                     <div class="col">
                         <div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
-                            <form action="#">
-                                <input type="text" class="search_input" placeholder="Search" required="required">
+                            <form th:action="@{/search/item}">
+                                <input type="text" id="keyword" name="keyword" class="search_input" placeholder="Search" required="required">
                             </form>
                         </div>
                     </div>
@@ -242,7 +242,7 @@
 
         <!-- Footer -->
 
-        <div class="footer_overlay"></div>
+        <!--<div class="footer_overlay"></div>
         <footer class="footer">
             <div class="footer_background" style="background-image:url(/images/footer.jpg)"></div>
             <div class="container">
@@ -251,12 +251,12 @@
                         <div class="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
                             <div class="footer_logo"><a href="#">MetaVerse.</a></div>
                             <div class="copyright ml-auto mr-auto">
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;
                                 Copyright &copy;<script>document.write(new Date().getFullYear());</script>
                                 All rights reserved | This template is made with <i class="fa fa-heart-o"
                                                                                     aria-hidden="true"></i> by <a
                                     href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;
                             </div>
                             <div class="footer_social ml-lg-auto">
                                 <ul>
@@ -270,7 +270,7 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer>-->
     </div>
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/popper.js"></script>

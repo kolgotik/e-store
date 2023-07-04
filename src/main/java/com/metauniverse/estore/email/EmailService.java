@@ -10,6 +10,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.net.SocketTimeoutException;
+
 @Service
 @AllArgsConstructor
 public class EmailService implements EmailSender {
@@ -20,8 +22,9 @@ public class EmailService implements EmailSender {
     @Override
     @Async
     public void send(String to, String email) {
+        MimeMessage mimeMessage = null;
         try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setText(email, true);
             helper.setTo(to);
@@ -30,6 +33,7 @@ public class EmailService implements EmailSender {
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             LOGGER.error("Failed to send email: " + e);
+            mailSender.send(mimeMessage);
             throw new IllegalStateException("Failed to send email");
         }
     }
