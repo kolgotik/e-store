@@ -29,7 +29,7 @@ class OAuth2LoginControllerTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        oauth2LoginController = new OAuth2LoginController(userRepository, null);
+        oauth2LoginController = new OAuth2LoginController(userRepository);
     }
 
     @Test
