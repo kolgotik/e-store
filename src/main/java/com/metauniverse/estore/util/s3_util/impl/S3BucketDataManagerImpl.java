@@ -37,7 +37,7 @@ public class S3BucketDataManagerImpl implements S3BucketDataManager {
         Map<Long, String> objectsImgLinks = new HashMap<>();
         for (Item item : items) {
             String objectImgLink = getObjectImageLink(item.getId(), s3client);
-            item.setPhoto(objectImgLink);
+            //item.setPhoto(objectImgLink);
             objectsImgLinks.put(item.getId(), objectImgLink);
         }
         session.setAttribute("itemsImgLinks", objectsImgLinks);
