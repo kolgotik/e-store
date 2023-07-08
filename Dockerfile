@@ -1,13 +1,11 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM maven:3.9.3-eclipse-temurin-17 AS build
+COPY . .
+RUN mvn clean package
 
-WORKDIR /app
+FROM eclipse-temurin:17-jdk-alpine
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+VOLUME /tmp
 
-RUN chmod +x mvnw
-RUN ./mvnw dependency:resolve
-
-COPY src ./src
-
-CMD ["./mvnw", "spring-boot:run"]
+COPY target/*.jar e-store-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/e-store-0.0.1-SNAPSHOT.jar"]
+EXPOSE 8080
