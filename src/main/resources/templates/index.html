@@ -1,73 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<title>MetaVerse</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Sublime project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+    <title>MetaVerse</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Sublime project">
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+    <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
 </head>
 <body>
 
 <div class="super_container">
 
-	<!-- Header -->
+    <!-- Header -->
 
-	<header class="header">
-		<div class="header_container">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="/">MetaVerse.</a></div>
-							<nav class="main_nav">
-								<ul>
-									<!--<li class="hassubs active">
-										<a href="index.html">Home</a>
-										<ul>
-											<li><a href="categories.html">Categories</a></li>
-											<li><a href="product.html">Product</a></li>
-											<li><a href="cart.html">Cart</a></li>
-											<li><a href="checkout.html">Check out</a></li>
-											<li><a href="contact.html">Contact</a></li>
-										</ul>
-									</li>-->
-									<li class="hassubs">
-										<a href="/category/all">Categories</a>
-										<ul>
-											<li><a href="/category/smartphones">Smartphones</a></li>
-											<li><a href="/category/laptops">Laptops</a></li>
-											<li><a href="/category/desktop-pcs">Desktop PCs</a></li>
-											<li><a href="/category/pc-components">PC Components</a></li>
-											<li><a href="/category/consoles">Consoles</a></li>
-										</ul>
-									</li>
-									<li><a href="#">Accessories</a></li>
-									<li><a href="#">Offers</a></li>
-									<li><a href="contact.html">Contact</a></li>
-									<li>
-										<a th:href="@{/login}" sec:authorize="!isAuthenticated()">
-											<span>Login</span>
-										</a>
-										<a th:href="@{/profile}" sec:authorize="isAuthenticated()">
-											<span>Profile</span>
-										</a>
-									</li>
+    <header class="header">
+        <div class="header_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                            <div class="logo"><a href="/">MetaVerse.</a></div>
+                            <nav class="main_nav">
+                                <ul>
+                                    <!--<li class="hassubs active">
+                                        <a href="index.html">Home</a>
+                                        <ul>
+                                            <li><a href="categories.html">Categories</a></li>
+                                            <li><a href="product.html">Product</a></li>
+                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="checkout.html">Check out</a></li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                        </ul>
+                                    </li>-->
+                                    <li class="hassubs">
+                                        <a href="/category/all">Categories</a>
+                                        <ul>
+                                            <li><a href="/category/smartphones">Smartphones</a></li>
+                                            <li><a href="/category/laptops">Laptops</a></li>
+                                            <li><a href="/category/desktop-pcs">Desktop PCs</a></li>
+                                            <li><a href="/category/pc-components">PC Components</a></li>
+                                            <li><a href="/category/consoles">Consoles</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/login}" sec:authorize="!isAuthenticated()">
+                                            <span>Login</span>
+                                        </a>
+                                        <a th:href="@{/profile}" sec:authorize="isAuthenticated()">
+                                            <span>Profile</span>
+                                        </a>
+                                    </li>
 
-								</ul>
-							</nav>
-							<div class="header_extra ml-auto">
-								<div th:if="${session.cart != null}" class="shopping_cart">
-									<a href="/cart">
-										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-												 viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;" xml:space="preserve">
+                                </ul>
+                            </nav>
+                            <div class="header_extra ml-auto">
+                                <div th:if="${session.cart != null}" class="shopping_cart">
+                                    <a href="/cart">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                             viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;"
+                                             xml:space="preserve">
 											<g>
 												<path d="M440.1,422.7l-28-315.3c-0.6-7-6.5-12.3-13.4-12.3h-57.6C340.3,42.5,297.3,0,244.5,0s-95.8,42.5-96.6,95.1H90.3
 													c-7,0-12.8,5.3-13.4,12.3l-28,315.3c0,0.4-0.1,0.8-0.1,1.2c0,35.9,32.9,65.1,73.4,65.1h244.6c40.5,0,73.4-29.2,73.4-65.1
@@ -76,14 +74,17 @@
 													c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z"/>
 											</g>
 										</svg>
-										<div>Cart <span th:text="'(' + ${session.cart.itemQuantity} + ')'">(0)</span></div>
-									</a>
-								</div>
-								<div class="search">
-									<div class="search_icon">
-										<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-										viewBox="0 0 475.084 475.084" style="enable-background:new 0 0 475.084 475.084;"
-										 xml:space="preserve">
+                                        <div>Cart <span th:text="'(' + ${session.cart.itemQuantity} + ')'">(0)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="search">
+                                    <div class="search_icon">
+                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                             viewBox="0 0 475.084 475.084"
+                                             style="enable-background:new 0 0 475.084 475.084;"
+                                             xml:space="preserve">
 										<g>
 											<path d="M464.524,412.846l-97.929-97.925c23.6-34.068,35.406-72.047,35.406-113.917c0-27.218-5.284-53.249-15.852-78.087
 												c-10.561-24.842-24.838-46.254-42.825-64.241c-17.987-17.987-39.396-32.264-64.233-42.826
@@ -98,329 +99,396 @@
 												"/>
 										</g>
 									</svg>
-									</div>
-								</div>
-								<div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Search Panel -->
-		<div class="search_panel trans_300">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
-							<form th:action="@{/search/item}">
-								<input type="text" id="keyword" name="keyword" class="search_input" placeholder="Search" required="required">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                                    </div>
+                                </div>
+                                <div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<!-- Social -->
-		<div class="header_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</header>
+        <!-- Search Panel -->
+        <div class="search_panel trans_300">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
+                            <form th:action="@{/search/item}">
+                                <input type="text" id="keyword" name="keyword" class="search_input" placeholder="Search"
+                                       required="required">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	<!-- Menu -->
+        <!-- Social -->
+        <!--<div class="header_social">
+            <ul>
+                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>-->
+    </header>
 
-	<div class="menu menu_mm trans_300">
-		<div class="menu_container menu_mm">
-			<div class="page_menu_content">
-							
-				<div class="page_menu_search menu_mm">
-					<form action="#">
-						<input type="search" required="required" class="page_menu_search_input menu_mm" placeholder="Search for products...">
-					</form>
-				</div>
-				<ul class="page_menu_nav menu_mm">
-					<!--<li class="page_menu_item has-children menu_mm">
-						<a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/cart">Cart<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>-->
-					<li class="page_menu_item has-children menu_mm">
-						<a href="/category/all">Categories<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="/category/smartphones">Smartphones.<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/category/laptops">Laptops.<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/category/desktop-pcs">Desktop PCs.<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/category/pc-components">PC Components.<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item menu_mm"><a href="index.html">Accessories<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-				</ul>
-			</div>
-		</div>
+    <!-- Menu -->
 
-		<div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+    <div class="menu menu_mm trans_300">
+        <div class="menu_container menu_mm">
+            <div class="page_menu_content">
 
-		<div class="menu_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
-	
-	<!-- Home -->
+                <div class="page_menu_search menu_mm">
+                    <form th:action="@{/search/item}">
+                        <input type="search" name="keyword" required="required" class="page_menu_search_input menu_mm"
+                               placeholder="Search for products...">
+                    </form>
+                </div>
+                <ul class="page_menu_nav menu_mm">
+                    <li class="page_menu_item has-children menu_mm">
+                        <a href="/category/all">Categories<i class="fa fa-angle-down"></i></a>
+                        <ul class="page_menu_selection menu_mm">
+                            <li class="page_menu_item menu_mm"><a href="/category/all">All Products.<i class="fa fa-angle-down"></i></a></li>
+                            <li class="page_menu_item menu_mm"><a href="/category/smartphones">Smartphones.<i class="fa fa-angle-down"></i></a></li>
+                            <li class="page_menu_item menu_mm"><a href="/category/laptops">Laptops.<i class="fa fa-angle-down"></i></a></li>
+                            <li class="page_menu_item menu_mm"><a href="/category/desktop-pcs">Desktop PCs.<i class="fa fa-angle-down"></i></a></li>
+                            <li class="page_menu_item menu_mm"><a href="/category/pc-components">PC Components.<i class="fa fa-angle-down"></i></a></li>
+                        </ul>
+                    </li>
 
-	<div class="home">
-		<div class="home_slider_container">
-			
-			<!-- Home Slider -->
-			<div class="owl-carousel owl-theme home_slider">
-				
-				<!-- Slider Item -->
-				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-										<div class="home_slider_title">All Products.</div>
-										<div class="home_slider_subtitle">Browse every product.</div>
-										<div class="button button_light home_button"><a href="/category/all">Shop Now</a></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                    <li class="page_menu_item menu_mm">
+                        <form th:action="@{/search/item}">
+                            <input type="text" name="keyword" placeholder="Search" required>
+                        </form>
+                    </li>
 
-				<!-- Slider Item -->
-				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(https://static.giga.de/wp-content/uploads/2021/02/samsung-galaxy-s21-und-plus-ultra-google-pixel-4a-4xl-xiaomi-redmi-note-9t-android-smartphones-q_giga-P1488189-rcm1920x1080.jpg)"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-										<div class="home_slider_title">Smartphones.</div>
-										<div class="home_slider_subtitle">Discover the latest smartphones that combine cutting-edge technology with sleek design. Explore a wide range of smartphones with advanced features, high-quality cameras, fast processors, and vibrant displays. Stay connected, capture stunning photos, and enjoy immersive multimedia experiences with these powerful pocket-sized devices. Choose from a variety of brands and models to find the perfect smartphone that suits your needs and enhances your digital lifestyle.</div>
-										<div class="button button_light home_button"><a href="/category/smartphones">Shop Now</a></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                    <li class="page_menu_item menu_mm"><a th:href="@{/login}" sec:authorize="!isAuthenticated()"><i class="fa fa-angle-down"></i>
+                        <span>Login</span>
+                    </a>
+                        <a th:href="@{/profile}" sec:authorize="isAuthenticated()"><i class="fa fa-angle-down"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                </ul>
 
-				<!-- Slider Item -->
-				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(https://i.pinimg.com/originals/c1/f3/82/c1f3826ed9e45f6168756860aff6dc03.jpg)"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-										<div class="home_slider_title">Laptops.</div>
-										<div class="home_slider_subtitle">Discover our wide range of cutting-edge laptops designed to enhance your productivity and elevate your computing experience. From sleek ultrabooks to powerful gaming laptops, we offer the latest models packed with advanced features, stunning displays, and exceptional performance. Whether you're a student, professional, or gaming enthusiast, our laptops provide the perfect combination of style, portability, and functionality. Browse our laptops category and find the perfect companion for work, study, or entertainment.</div>
-										<div class="button button_light home_button"><a href="/category/laptops">Shop Now</a></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 
-				<!-- Slider Item -->
-				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(https://i.pinimg.com/originals/5e/ae/70/5eae70b3cde553c09d6ddb1ecd490dc4.jpg)"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-										<div class="home_slider_title">Desktop PCs.</div>
-										<div class="home_slider_subtitle">Explore our wide selection of high-performance desktop PCs, designed to deliver exceptional power, speed, and reliability. Whether you're a professional seeking productivity or a gaming enthusiast looking for the ultimate gaming experience, our desktop PCs offer cutting-edge technology, stunning graphics, and customizable configurations to suit your needs.</div>
-										<div class="button button_light home_button"><a href="/category/desktop-pcs">Shop Now</a></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+            </div>
+        </div>
 
-				<!-- Slider Item -->
-				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(https://wallpapercave.com/wp/wp9724504.jpg)"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-										<div class="home_slider_title">PC Components.</div>
-										<div class="home_slider_subtitle">Discover a wide range of high-performance PC components for building or upgrading your computer. Explore our collection of powerful processors, advanced graphics cards, reliable motherboards, fast storage drives, efficient power supplies, and more. Enhance your gaming, productivity, and overall computing experience with top-quality PC components designed to deliver exceptional performance and reliability. Whether you're a professional, an avid gamer, or a DIY enthusiast, find the perfect components to take your PC to the next level.</div>
-										<div class="button button_light home_button"><a href="/category/pc-components">Shop Now</a></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+        <div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
 
-				<!-- Slider Item -->
-				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(https://gd3.alicdn.com/imgextra/i3/282763092/TB2rRGsb3mTBuNjy1XbXXaMrVXa_!!282763092.jpg)"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-										<div class="home_slider_title">Consoles.</div>
-										<div class="home_slider_subtitle">Explore the latest and greatest gaming consoles in our Consoles category. Immerse yourself in a world of cutting-edge technology and gaming experiences with top-of-the-line consoles from leading brands. Whether you're a casual gamer or a dedicated enthusiast, discover a wide range of consoles that deliver stunning graphics, immersive gameplay, and seamless performance. Elevate your gaming adventures and unlock new levels of entertainment with the Consoles category</div>
-										<div class="button button_light home_button"><a href="/category/consoles">Shop Now</a></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+        <!--<div class="menu_social">
+            <ul>
+                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>-->
+    </div>
 
-			</div>
+    <!-- Home -->
 
-			<!-- Home Slider Dots -->
-			
-			<div class="home_slider_dots_container">
-				<div class="container">
-					<div class="row">
-						<div class="col">
-							<div class="home_slider_dots">
-								<ul id="home_slider_custom_dots" class="home_slider_custom_dots">
-									<li class="home_slider_custom_dot active">01.</li>
-									<li class="home_slider_custom_dot">02.</li>
-									<li class="home_slider_custom_dot">03.</li>
-									<li class="home_slider_custom_dot">04.</li>
-									<li class="home_slider_custom_dot">05.</li>
-									<li class="home_slider_custom_dot">06.</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>	
-			</div>
+    <div class="home">
+        <div class="home_slider_container">
 
-		</div>
-	</div>
+            <!-- Home Slider -->
+            <div class="owl-carousel owl-theme home_slider">
 
-	<!-- Icon Boxes -->
+                <!-- Slider Item -->
+                <div class="owl-item home_slider_item">
+                    <div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content" data-animation-in="fadeIn"
+                                         data-animation-out="animate-out fadeOut">
+                                        <div class="home_slider_title">All Products.</div>
+                                        <div class="home_slider_subtitle">Browse every product.</div>
+                                        <div class="button button_light home_button"><a href="/category/all">Shop
+                                            Now</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-	<div class="icon_boxes">
-		<div class="container">
-			<div class="row icon_box_row">
-				
-				<!-- Icon Box -->
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/icon_1.svg" alt=""></div>
-						<div class="icon_box_title">Free Shipping Worldwide</div>
-						<div class="icon_box_text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</p>
-						</div>
-					</div>
-				</div>
+                <!-- Slider Item -->
+                <div class="owl-item home_slider_item">
+                    <div class="home_slider_background"
+                         style="background-image:url(https://static.giga.de/wp-content/uploads/2021/02/samsung-galaxy-s21-und-plus-ultra-google-pixel-4a-4xl-xiaomi-redmi-note-9t-android-smartphones-q_giga-P1488189-rcm1920x1080.jpg)"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content" data-animation-in="fadeIn"
+                                         data-animation-out="animate-out fadeOut">
+                                        <div class="home_slider_title">Smartphones.</div>
+                                        <div class="home_slider_subtitle">Discover the latest smartphones that combine
+                                            cutting-edge technology with sleek design. Explore a wide range of
+                                            smartphones with advanced features, high-quality cameras, fast processors,
+                                            and vibrant displays. Stay connected, capture stunning photos, and enjoy
+                                            immersive multimedia experiences with these powerful pocket-sized devices.
+                                            Choose from a variety of brands and models to find the perfect smartphone
+                                            that suits your needs and enhances your digital lifestyle.
+                                        </div>
+                                        <div class="button button_light home_button"><a href="/category/smartphones">Shop
+                                            Now</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				<!-- Icon Box -->
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/icon_2.svg" alt=""></div>
-						<div class="icon_box_title">Free Returns</div>
-						<div class="icon_box_text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</p>
-						</div>
-					</div>
-				</div>
+                <!-- Slider Item -->
+                <div class="owl-item home_slider_item">
+                    <div class="home_slider_background"
+                         style="background-image:url(https://i.pinimg.com/originals/c1/f3/82/c1f3826ed9e45f6168756860aff6dc03.jpg)"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content" data-animation-in="fadeIn"
+                                         data-animation-out="animate-out fadeOut">
+                                        <div class="home_slider_title">Laptops.</div>
+                                        <div class="home_slider_subtitle">Discover our wide range of cutting-edge
+                                            laptops designed to enhance your productivity and elevate your computing
+                                            experience. From sleek ultrabooks to powerful gaming laptops, we offer the
+                                            latest models packed with advanced features, stunning displays, and
+                                            exceptional performance. Whether you're a student, professional, or gaming
+                                            enthusiast, our laptops provide the perfect combination of style,
+                                            portability, and functionality. Browse our laptops category and find the
+                                            perfect companion for work, study, or entertainment.
+                                        </div>
+                                        <div class="button button_light home_button"><a href="/category/laptops">Shop
+                                            Now</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				<!-- Icon Box -->
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/icon_3.svg" alt=""></div>
-						<div class="icon_box_title">24h Fast Support</div>
-						<div class="icon_box_text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.</p>
-						</div>
-					</div>
-				</div>
+                <!-- Slider Item -->
+                <div class="owl-item home_slider_item">
+                    <div class="home_slider_background"
+                         style="background-image:url(https://i.pinimg.com/originals/5e/ae/70/5eae70b3cde553c09d6ddb1ecd490dc4.jpg)"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content" data-animation-in="fadeIn"
+                                         data-animation-out="animate-out fadeOut">
+                                        <div class="home_slider_title">Desktop PCs.</div>
+                                        <div class="home_slider_subtitle">Explore our wide selection of high-performance
+                                            desktop PCs, designed to deliver exceptional power, speed, and reliability.
+                                            Whether you're a professional seeking productivity or a gaming enthusiast
+                                            looking for the ultimate gaming experience, our desktop PCs offer
+                                            cutting-edge technology, stunning graphics, and customizable configurations
+                                            to suit your needs.
+                                        </div>
+                                        <div class="button button_light home_button"><a href="/category/desktop-pcs">Shop
+                                            Now</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-			</div>
-		</div>
-	</div>
+                <!-- Slider Item -->
+                <div class="owl-item home_slider_item">
+                    <div class="home_slider_background"
+                         style="background-image:url(https://wallpapercave.com/wp/wp9724504.jpg)"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content" data-animation-in="fadeIn"
+                                         data-animation-out="animate-out fadeOut">
+                                        <div class="home_slider_title">PC Components.</div>
+                                        <div class="home_slider_subtitle">Discover a wide range of high-performance PC
+                                            components for building or upgrading your computer. Explore our collection
+                                            of powerful processors, advanced graphics cards, reliable motherboards, fast
+                                            storage drives, efficient power supplies, and more. Enhance your gaming,
+                                            productivity, and overall computing experience with top-quality PC
+                                            components designed to deliver exceptional performance and reliability.
+                                            Whether you're a professional, an avid gamer, or a DIY enthusiast, find the
+                                            perfect components to take your PC to the next level.
+                                        </div>
+                                        <div class="button button_light home_button"><a href="/category/pc-components">Shop
+                                            Now</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-	<!-- Newsletter -->
+                <!-- Slider Item -->
+                <div class="owl-item home_slider_item">
+                    <div class="home_slider_background"
+                         style="background-image:url(https://gd3.alicdn.com/imgextra/i3/282763092/TB2rRGsb3mTBuNjy1XbXXaMrVXa_!!282763092.jpg)"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content" data-animation-in="fadeIn"
+                                         data-animation-out="animate-out fadeOut">
+                                        <div class="home_slider_title">Consoles.</div>
+                                        <div class="home_slider_subtitle">Explore the latest and greatest gaming
+                                            consoles in our Consoles category. Immerse yourself in a world of
+                                            cutting-edge technology and gaming experiences with top-of-the-line consoles
+                                            from leading brands. Whether you're a casual gamer or a dedicated
+                                            enthusiast, discover a wide range of consoles that deliver stunning
+                                            graphics, immersive gameplay, and seamless performance. Elevate your gaming
+                                            adventures and unlock new levels of entertainment with the Consoles category
+                                        </div>
+                                        <div class="button button_light home_button"><a href="/category/consoles">Shop
+                                            Now</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-	<div class="newsletter">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="newsletter_border"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2">
-					<div class="newsletter_content text-center">
-						<div class="newsletter_title">Subscribe to our newsletter</div>
-						<div class="newsletter_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros</p></div>
-						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required">
-								<button class="newsletter_button trans_200"><span>Subscribe</span></button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            </div>
 
-	<!-- Footer -->
-	
-	<div class="footer_overlay"></div>
-	<footer class="footer">
-		<div class="footer_background" style="background-image:url(images/footer.jpg)"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
-						<div class="footer_logo"><a href="#">MetaVerse.</a></div>
-						<div class="copyright ml-auto mr-auto"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
-						<div class="footer_social ml-lg-auto">
-							<ul>
-								<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+            <!-- Home Slider Dots -->
+
+            <div class="home_slider_dots_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="home_slider_dots">
+                                <ul id="home_slider_custom_dots" class="home_slider_custom_dots">
+                                    <li class="home_slider_custom_dot active">01.</li>
+                                    <li class="home_slider_custom_dot">02.</li>
+                                    <li class="home_slider_custom_dot">03.</li>
+                                    <li class="home_slider_custom_dot">04.</li>
+                                    <li class="home_slider_custom_dot">05.</li>
+                                    <li class="home_slider_custom_dot">06.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Icon Boxes -->
+
+    <div class="icon_boxes">
+        <div class="container">
+            <div class="row icon_box_row">
+
+                <!-- Icon Box -->
+                <div class="col-lg-4 icon_box_col">
+                    <div class="icon_box">
+                        <div class="icon_box_image"><img src="images/icon_1.svg" alt=""></div>
+                        <div class="icon_box_title">Free Shipping Worldwide</div>
+                        <div class="icon_box_text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed
+                                nec molestie.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Icon Box -->
+                <div class="col-lg-4 icon_box_col">
+                    <div class="icon_box">
+                        <div class="icon_box_image"><img src="images/icon_2.svg" alt=""></div>
+                        <div class="icon_box_title">Free Returns</div>
+                        <div class="icon_box_text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed
+                                nec molestie.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Icon Box -->
+                <div class="col-lg-4 icon_box_col">
+                    <div class="icon_box">
+                        <div class="icon_box_image"><img src="images/icon_3.svg" alt=""></div>
+                        <div class="icon_box_title">24h Fast Support</div>
+                        <div class="icon_box_text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed
+                                nec molestie.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter -->
+
+    <div class="newsletter">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="newsletter_border"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="newsletter_content text-center">
+                        <div class="newsletter_title">Subscribe to our newsletter</div>
+                        <div class="newsletter_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                            a ultricies metus. Sed nec molestie eros</p></div>
+                        <div class="newsletter_form_container">
+                            <form action="#" id="newsletter_form" class="newsletter_form">
+                                <input type="email" class="newsletter_input" required="required">
+                                <button class="newsletter_button trans_200"><span>Subscribe</span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <div class="footer_overlay"></div>
+    <footer class="footer">
+        <div class="footer_background" style="background-image:url(images/footer.jpg)"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
+                        <div class="footer_logo"><a href="#">MetaVerse.</a></div>
+                        <div class="copyright ml-auto mr-auto">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                                aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+                        <div class="footer_social ml-lg-auto">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
 
 <script src="js/jquery-3.2.1.min.js"></script>

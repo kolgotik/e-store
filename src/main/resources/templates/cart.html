@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sublime project">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap4/bootstrap.min.css">
     <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/styles/cart.css">
@@ -46,9 +45,6 @@
                                             <li><a href="/category/consoles">Consoles</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Accessories</a></li>
-                                    <li><a href="#">Offers</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
                                     <li>
                                         <a th:href="@{/login}" sec:authorize="!isAuthenticated()">
                                             <span>Login</span>
@@ -57,10 +53,11 @@
                                             <span>Profile</span>
                                         </a>
                                     </li>
+
                                 </ul>
                             </nav>
                             <div class="header_extra ml-auto">
-                                <div class="shopping_cart">
+                                <div th:if="${session.cart != null}" class="shopping_cart">
                                     <a href="/cart">
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -116,7 +113,8 @@
                     <div class="col">
                         <div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
                             <form th:action="@{/search/item}">
-                                <input type="text" id="keyword" name="keyword" class="search_input" placeholder="Search" required="required">
+                                <input type="text" id="keyword" name="keyword" class="search_input" placeholder="Search"
+                                       required="required">
                             </form>
                         </div>
                     </div>
@@ -125,14 +123,14 @@
         </div>
 
         <!-- Social -->
-        <div class="header_social">
+        <!--<div class="header_social">
             <ul>
                 <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
             </ul>
-        </div>
+        </div>-->
     </header>
 
     <!-- Menu -->
@@ -142,47 +140,52 @@
             <div class="page_menu_content">
 
                 <div class="page_menu_search menu_mm">
-                    <form action="#">
-                        <input type="search" required="required" class="page_menu_search_input menu_mm" placeholder="Search for products...">
+                    <form th:action="@{/search/item}">
+                        <input type="search" name="keyword" required="required" class="page_menu_search_input menu_mm"
+                               placeholder="Search for products...">
                     </form>
                 </div>
                 <ul class="page_menu_nav menu_mm">
-                    <!--<li class="page_menu_item has-children menu_mm">
-                        <a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-                        <ul class="page_menu_selection menu_mm">
-                            <li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
-                            <li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
-                            <li class="page_menu_item menu_mm"><a href="/cart">Cart<i class="fa fa-angle-down"></i></a></li>
-                            <li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
-                            <li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-                        </ul>
-                    </li>-->
                     <li class="page_menu_item has-children menu_mm">
                         <a href="/category/all">Categories<i class="fa fa-angle-down"></i></a>
                         <ul class="page_menu_selection menu_mm">
+                            <li class="page_menu_item menu_mm"><a href="/category/all">All Products.<i class="fa fa-angle-down"></i></a></li>
                             <li class="page_menu_item menu_mm"><a href="/category/smartphones">Smartphones.<i class="fa fa-angle-down"></i></a></li>
                             <li class="page_menu_item menu_mm"><a href="/category/laptops">Laptops.<i class="fa fa-angle-down"></i></a></li>
                             <li class="page_menu_item menu_mm"><a href="/category/desktop-pcs">Desktop PCs.<i class="fa fa-angle-down"></i></a></li>
                             <li class="page_menu_item menu_mm"><a href="/category/pc-components">PC Components.<i class="fa fa-angle-down"></i></a></li>
                         </ul>
                     </li>
-                    <li class="page_menu_item menu_mm"><a href="index.html">Accessories<i class="fa fa-angle-down"></i></a></li>
-                    <li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-                    <li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
+
+                    <li class="page_menu_item menu_mm">
+                        <form th:action="@{/search/item}">
+                            <input type="text" name="keyword" placeholder="Search" required>
+                        </form>
+                    </li>
+
+                    <li class="page_menu_item menu_mm"><a th:href="@{/login}" sec:authorize="!isAuthenticated()"><i class="fa fa-angle-down"></i>
+                        <span>Login</span>
+                    </a>
+                        <a th:href="@{/profile}" sec:authorize="isAuthenticated()"><i class="fa fa-angle-down"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
                 </ul>
+
+
             </div>
         </div>
 
         <div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
 
-        <div class="menu_social">
+        <!--<div class="menu_social">
             <ul>
                 <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
             </ul>
-        </div>
+        </div>-->
     </div>
 
     <!-- Home -->

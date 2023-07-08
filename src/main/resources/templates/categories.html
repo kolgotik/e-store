@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sublime project">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap4/bootstrap.min.css">
     <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
@@ -26,36 +26,42 @@
                 <div class="row">
                     <div class="col">
                         <div class="header_content d-flex flex-row align-items-center justify-content-start">
-                            <div class="logo"><a href="#">Sublime.</a></div>
+                            <div class="logo"><a href="/">MetaVerse.</a></div>
                             <nav class="main_nav">
                                 <ul>
-                                    <li class="hassubs active">
+                                    <!--<li class="hassubs active">
                                         <a href="index.html">Home</a>
                                         <ul>
                                             <li><a href="categories.html">Categories</a></li>
                                             <li><a href="product.html">Product</a></li>
-                                            <li><a href="/cart">Cart</a></li>
+                                            <li><a href="cart.html">Cart</a></li>
                                             <li><a href="checkout.html">Check out</a></li>
                                             <li><a href="contact.html">Contact</a></li>
                                         </ul>
-                                    </li>
+                                    </li>-->
                                     <li class="hassubs">
-                                        <a href="categories.html">Categories</a>
+                                        <a href="/category/all">Categories</a>
                                         <ul>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
+                                            <li><a href="/category/smartphones">Smartphones</a></li>
+                                            <li><a href="/category/laptops">Laptops</a></li>
+                                            <li><a href="/category/desktop-pcs">Desktop PCs</a></li>
+                                            <li><a href="/category/pc-components">PC Components</a></li>
+                                            <li><a href="/category/consoles">Consoles</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Accessories</a></li>
-                                    <li><a href="#">Offers</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li>
+                                        <a th:href="@{/login}" sec:authorize="!isAuthenticated()">
+                                            <span>Login</span>
+                                        </a>
+                                        <a th:href="@{/profile}" sec:authorize="isAuthenticated()">
+                                            <span>Profile</span>
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </nav>
                             <div class="header_extra ml-auto">
-                                <div class="shopping_cart">
+                                <div th:if="${session.cart != null}" class="shopping_cart">
                                     <a href="/cart">
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -69,7 +75,8 @@
 													c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z"/>
 											</g>
 										</svg>
-                                        <div>Cart <span>(0)</span></div>
+                                        <div>Cart <span th:text="'(' + ${session.cart.itemQuantity} + ')'">(0)</span>
+                                        </div>
                                     </a>
                                 </div>
                                 <div class="search">
@@ -109,8 +116,9 @@
                 <div class="row">
                     <div class="col">
                         <div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
-                            <form action="#">
-                                <input type="text" class="search_input" placeholder="Search" required="required">
+                            <form th:action="@{/search/item}">
+                                <input type="text" id="keyword" name="keyword" class="search_input" placeholder="Search"
+                                       required="required">
                             </form>
                         </div>
                     </div>
@@ -119,14 +127,14 @@
         </div>
 
         <!-- Social -->
-        <div class="header_social">
+        <!--<div class="header_social">
             <ul>
                 <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
             </ul>
-        </div>
+        </div>-->
     </header>
 
     <!-- Menu -->
