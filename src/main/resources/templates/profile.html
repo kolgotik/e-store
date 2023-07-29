@@ -54,6 +54,9 @@
                                         <a th:href="@{/profile}" sec:authorize="isAuthenticated()">
                                             <span>Profile</span>
                                         </a>
+                                        <a style="margin-left: 35px" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+                                            <span>Logout</span>
+                                        </a>
                                     </li>
 
                                 </ul>
@@ -172,6 +175,7 @@
                             <span>Profile</span>
                         </a>
                     </li>
+
                 </ul>
 
 

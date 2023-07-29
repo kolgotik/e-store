@@ -62,7 +62,7 @@ public class RegistrationService {
             user.setRoles(Collections.singleton(Role.ROLE_OAUTH2USER));
 
             String token = userService.signUpUser(user);
-            String link = "https://metaverse-pjmu.onrender.com/api/v1/registration/confirm?token=" + token;
+            String link = "https://shrimp-curious-thoroughly.ngrok-free.app/api/v1/registration/confirm?token=" + token;
             emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
             return "Confirm you email.";
         }
@@ -75,7 +75,7 @@ public class RegistrationService {
                         request.getPassword(),
                         Collections.singleton(Role.ROLE_USER))
         );
-        String link = "https://metaverse-pjmu.onrender.com/api/v1/registration/confirm?token=" + token;
+        String link = "https://shrimp-curious-thoroughly.ngrok-free.app/api/v1/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
         return "Confirm you email.";
     }
